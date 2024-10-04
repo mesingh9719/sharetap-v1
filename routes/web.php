@@ -16,9 +16,9 @@ Route::get('/login', function () {
     return view('front.login');
 })->name('user.login');
 
-Route::get('/templates', [TemplateController::class, 'templates'])->name('card.templates');
+
 
 Route::prefix('card')->group(function () {
     Route::get('/create', [CardController::class, 'create'])->name('card.create');
-    Route::post('/templates', [CardController::class, 'cardTemplates'])->name('card.templates');
+    Route::get('/templates', [TemplateController::class, 'templates'])->name('card.templates');
 });
