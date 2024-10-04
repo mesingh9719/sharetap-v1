@@ -45,6 +45,7 @@
     <x-front.home-template-section />
     <x-front.features-component />
     <x-front.plansSection/>
+    <x-front.call-to-action-section/>
     <x-slot:js>
         <script>
             let currentSlide = 0;
