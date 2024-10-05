@@ -12,20 +12,6 @@
 
     <!-- Content -->
     <div class="relative z-10 max-w-4xl mx-auto text-center">
-        <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-4 animate-fade-in-up">
-            <span class="block">Ready to dive into the future?</span>
-            <span class="block text-indigo-300 mt-2">Join us on this exciting journey!</span>
-        </h2>
-        <p class="mt-4 text-xl text-indigo-100 animate-fade-in-up animation-delay-200">
-            Embrace innovation, unlock your potential, and shape tomorrow's world today.
-        </p>
-        <div class="mt-8 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <a href="#" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-900 bg-indigo-100 hover:bg-indigo-200 transition duration-300 ease-in-out transform hover:scale-105 animate-fade-in-up animation-delay-400">
-                Get Started
-            </a>
-            <a href="#" class="inline-flex items-center justify-center px-8 py-3 border border-indigo-100 text-base font-medium rounded-md text-indigo-100 bg-transparent hover:bg-indigo-100 hover:text-indigo-900 transition duration-300 ease-in-out transform hover:scale-105 animate-fade-in-up animation-delay-600">
-                Learn More
-            </a>
-        </div>
+        <h2 class="text-4xl sm:text-5xl font-extrabold text-white mb-4 animate-fade-in-up"> <span class="block">Ready to showcase your professional brand?</span> <span class="block text-indigo-300 mt-2">Build and share your personal portfolio effortlessly!</span> </h2> <p class="mt-4 text-xl text-indigo-100 animate-fade-in-up animation-delay-200"> At ShareTap, we make it easy for you to create stunning personal websites and portfolios. Whether you're a freelancer, entrepreneur, or professional, you can choose from over 30 customizable templates to highlight your work, skills, and services. Plus, with our exclusive ShareTap NFC card, sharing your portfolio has never been easier. Simply tap your card on any smartphone and instantly share your profile with clients, collaborators, or potential employers. </p> <div class="mt-8 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4"> <a href="#" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-900 bg-indigo-100 hover:bg-indigo-200 transition duration-300 ease-in-out transform hover:scale-105 animate-fade-in-up animation-delay-400"> Get Started </a> <a href="#" class="inline-flex items-center justify-center px-8 py-3 border border-indigo-100 text-base font-medium rounded-md text-indigo-100 bg-transparent hover:bg-indigo-100 hover:text-indigo-900 transition duration-300 ease-in-out transform hover:scale-105 animate-fade-in-up animation-delay-600"> Learn More </a> </div>
     </div>
 </section>

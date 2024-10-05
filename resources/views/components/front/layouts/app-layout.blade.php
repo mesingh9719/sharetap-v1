@@ -114,6 +114,12 @@
     <x-front.layouts.footer />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
     <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            var mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             new Swiper('.swiper-container', {
                 slidesPerView: 5,
