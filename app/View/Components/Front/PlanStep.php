@@ -2,12 +2,12 @@
 
 namespace App\View\Components\Front;
 
-use App\Models\Template;
+use App\Models\SubscriptionPlan;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class TemplateSelection extends Component
+class PlanStep extends Component
 {
     /**
      * Create a new component instance.
@@ -22,7 +22,7 @@ class TemplateSelection extends Component
      */
     public function render(): View|Closure|string
     {
-        $templates = Template::all();
-        return view('components.front.template-selection',compact('templates'));
+        $plans = SubscriptionPlan::all();
+        return view('components.front.plan-step',compact('plans'));
     }
 }
