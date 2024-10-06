@@ -7,8 +7,8 @@
         <div class="flex items-center justify-between">
             <label for="template-{{ $template->id }}" class="font-medium text-lg">{{ 'Template ' . $template->id }}</label>
             <input type="radio" id="template-{{ $template->id }}" name="template"
-                   value="template-{{ $template->id }}" class="form-radio h-5 w-5 text-indigo-600"
-                   required>
+                   value="{{ $template->id }}" class="form-radio h-5 w-5 text-indigo-600"
+                   required @change="localStorage.setItem('selectedTemplateId', $event.target.value)">
         </div>
     </div>
 @endforeach

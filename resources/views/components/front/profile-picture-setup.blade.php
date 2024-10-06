@@ -68,7 +68,8 @@
                     </div>
                     <input type="url" id="linkedin" name="linkedin"
                            class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 pr-3 py-3 sm:text-sm border-gray-300 rounded-md transition duration-150 ease-in-out"
-                           placeholder="https://linkedin.com/in/username">
+                           placeholder="https://linkedin.com/in/username"
+                           @change="localStorage.setItem('linkedin', $event.target.value)">
                 </div>
             </div>
 
@@ -82,7 +83,8 @@
                     </div>
                     <input type="url" id="twitter" name="twitter"
                            class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 pr-3 py-3 sm:text-sm border-gray-300 rounded-md transition duration-150 ease-in-out"
-                           placeholder="https://twitter.com/username">
+                           placeholder="https://twitter.com/username"
+                           @change="localStorage.setItem('twitter', $event.target.value)">
                 </div>
             </div>
 
@@ -96,7 +98,8 @@
                     </div>
                     <input type="url" id="facebook" name="facebook"
                            class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 pr-3 py-3 sm:text-sm border-gray-300 rounded-md transition duration-150 ease-in-out"
-                           placeholder="https://facebook.com/username">
+                           placeholder="https://facebook.com/username"
+                           @change="localStorage.setItem('facebook', $event.target.value)">
                 </div>
             </div>
 
@@ -110,7 +113,8 @@
                     </div>
                     <input type="url" id="instagram" name="instagram"
                            class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 pr-3 py-3 sm:text-sm border-gray-300 rounded-md transition duration-150 ease-in-out"
-                           placeholder="https://instagram.com/username">
+                           placeholder="https://instagram.com/username"
+                           @change="localStorage.setItem('instagram', $event.target.value)">
                 </div>
             </div>
         </div>

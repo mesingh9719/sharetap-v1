@@ -119,20 +119,20 @@
                                 <label for="full_name" class="block mb-2 font-medium text-gray-700">Full Name</label>
                                 <input type="text" id="full_name" name="full_name"
                                        class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
-                                       required>
+                                       required @change="localStorage.setItem('full_name', $event.target.value)">
                             </div>
                             <div>
                                 <label for="date_of_birth" class="block mb-2 font-medium text-gray-700">Date of
                                     Birth</label>
                                 <input type="date" id="date_of_birth" name="date_of_birth"
                                        class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
-                                       required>
+                                       required @change="localStorage.setItem('date_of_birth', $event.target.value)">
                             </div>
                             <div>
                                 <label class="block mb-2 font-medium text-gray-700">Gender</label>
                                 <select name="gender"
                                         class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
-                                        required>
+                                        required @change="localStorage.setItem('gender', $event.target.value)">
                                     <option value="">Select Gender</option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
@@ -143,7 +143,7 @@
                                 <label for="profession" class="block mb-2 font-medium text-gray-700">Profession</label>
                                 <input type="text" id="profession" name="profession"
                                        class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
-                                       required>
+                                       required @change="localStorage.setItem('profession', $event.target.value)">
                             </div>
                         </div>
                     </div>
@@ -158,25 +158,26 @@
                                 <label for="email" class="block mb-2 font-medium text-gray-700">Email</label>
                                 <input type="email" id="email" name="email"
                                        class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
-                                       required>
+                                       required @change="localStorage.setItem('email', $event.target.value)">
                             </div>
                             <div>
                                 <label for="phone" class="block mb-2 font-medium text-gray-700">Phone Number</label>
                                 <input type="tel" id="phone" name="phone"
                                        class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
-                                       required>
+                                       required @change="localStorage.setItem('phone', $event.target.value)">
                             </div>
                             <div>
                                 <label for="alternate_email" class="block mb-2 font-medium text-gray-700">Alternate
                                     Email</label>
                                 <input type="email" id="alternate_email" name="alternate_email"
-                                       class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
+                                       @change="localStorage.setItem('alternate_email', $event.target.value)">
                             </div>
                             <div>
                                 <label for="location" class="block mb-2 font-medium text-gray-700">Location</label>
                                 <input type="text" id="location" name="location"
                                        class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
-                                       required>
+                                       required @change="localStorage.setItem('location', $event.target.value)">
                             </div>
                         </div>
                     </div>
@@ -223,36 +224,38 @@
     <x-slot:js>
         <script>
             function imageUploadHandler() {
-                return {
-                    profileImagePreview: null,
-                    coverImagePreview: null,
+    return {
+        profileImagePreview: null,
+        coverImagePreview: null,
 
-                    selectFile(type) {
-                        if (type === 'profile') {
-                            this.$refs.profileFileInput.click();
-                        } else if (type === 'cover') {
-                            this.$refs.coverFileInput.click();
-                        }
-                    },
-
-                    handleFileSelect(type, event) {
-                        const file = event.target.files[0];
-                        if (file && file.type.startsWith('image/')) {
-                            const reader = new FileReader();
-                            reader.onload = (e) => {
-                                if (type === 'profile') {
-                                    this.profileImagePreview = e.target.result;
-                                } else if (type === 'cover') {
-                                    this.coverImagePreview = e.target.result;
-                                }
-                            };
-                            reader.readAsDataURL(file);
-                        }
-                        // Reset the input value to allow re-selecting the same file if needed
-                        event.target.value = '';
-                    },
-                };
+        selectFile(type) {
+            // Open the file input for the respective type (profile or cover)
+            if (type === 'profile') {
+                this.$refs.profileFileInput.click();
+            } else if (type === 'cover') {
+                this.$refs.coverFileInput.click();
             }
+        },
+
+        handleFileSelect(type, event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    if (type === 'profile') {
+                        this.profileImagePreview = e.target.result;
+                    } else if (type === 'cover') {
+                        this.coverImagePreview = e.target.result;
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+            // Reset the input value to allow re-selecting the same file
+            event.target.value = null;
+        },
+    };
+}
+
         </script>
     </x-slot:js>
 </x-front.layouts.app-layout>
