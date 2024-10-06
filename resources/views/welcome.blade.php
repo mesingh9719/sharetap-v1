@@ -47,19 +47,56 @@
     <x-front.plansSection/>
     <x-front.call-to-action-section/>
     <x-slot:js>
-        <script>
-            let currentSlide = 0;
-            const slider = document.getElementById('featureSlider');
-            const slideWidth = document.querySelector('.container').clientWidth;
-            const totalSlides = slider.children.length;
-        
-            function slideFeatures(direction) {
-                currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-                slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
-            }
-        
-            // Auto-slide every 5 seconds
-            setInterval(() => slideFeatures(1), 5000);
-        </script>
+    <script>
+    const slider = document.getElementById('featureSlider');
+    const slides = slider.children;
+    const totalSlides = slides.length;
+    let currentIndex = 0;
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    let slidesPerView = 1;
+
+    function updateButtonVisibility() {
+        prevButton.style.display = currentIndex === 0 ? 'none' : 'block';
+        nextButton.style.display = currentIndex >= totalSlides - slidesPerView ? 'none' : 'block';
+    }
+
+    function slideFeatures(direction) {
+        const newIndex = currentIndex + direction;
+        if (newIndex >= 0 && newIndex <= totalSlides - slidesPerView) {
+            currentIndex = newIndex;
+            const offset = -currentIndex * (100 / slidesPerView);
+            slider.style.transform = `translateX(${offset}%)`;
+            updateButtonVisibility();
+        }
+    }
+
+    // Adjust slider for responsive design
+    function adjustSlider() {
+        const viewportWidth = window.innerWidth;
+
+        if (viewportWidth >= 1024) {
+            slidesPerView = 3;
+        } else if (viewportWidth >= 640) {
+            slidesPerView = 2;
+        } else {
+            slidesPerView = 1;
+        }
+
+        const slideWidth = 100 / slidesPerView;
+        Array.from(slides).forEach(slide => {
+            slide.style.width = `${slideWidth}%`;
+        });
+
+        // Reset position and update buttons
+        currentIndex = 0;
+        slider.style.transform = 'translateX(0)';
+        updateButtonVisibility();
+    }
+
+    // Call adjustSlider on load and resize
+    window.addEventListener('load', adjustSlider);
+    window.addEventListener('resize', adjustSlider);
+</script>
     </x-slot:js>
 </x-front.layouts.app-layout>

@@ -5,22 +5,22 @@
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="{{ $settings['favicon'] }}" type="image/png">
+    <link rel="icon" href="{{ $settings['favicon'] ?? '' }}" type="image/png">
 
     @if (!empty($metas))
         @if ($metas['meta_description'])
-            <meta name="description" content="{{ $metas['meta_description'] }}">
+            <meta name="description" content="{{ $metas['meta_description'] ?? '' }}">
         @endif
         @if ($metas['meta_keyword'])
-            <meta name="keywords" content="{{ $metas['meta_keyword'] }}">
+            <meta name="keywords" content="{{ $metas['meta_keyword'] ?? '' }}">
         @endif
         @if ($metas['home_title'] && $metas['site_title'])
-            <title>{{ $metas['home_title'] }} | {{ $metas['site_title'] }}</title>
+            <title>{{ $metas['home_title'] }} | {{ $metas['site_title'] ?? '' }}</title>
         @else
-            <title>@yield('title') | {{ $settings['site_title'] }}</title>
+            <title>@yield('title') | {{ $settings['site_title'] ?? '' }}</title>
         @endif
     @else
-        <title>@yield('title') | {{ $settings['site_title'] }}</title>
+        <title>@yield('title') | {{ $settings['site_title'] ?? '' }}</title>
         <meta name="description" content="">
         <meta name="keywords" content="">
     @endif
@@ -30,7 +30,7 @@
     @endif
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="@yield('title') | {{ $settings['site_title'] }}" />
+    <meta property="og:title" content="@yield('title') | {{ $settings['site_title'] ?? '' }}" />
     <meta property="og:description" content="{{ $metas['meta_description'] ?? '' }}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ request()->url() }}" />
@@ -40,13 +40,15 @@
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="@yield('title') | {{ $settings['site_title'] }}" />
+    <meta name="twitter:title" content="@yield('title') | {{ $settings['site_title'] ?? '' }}" />
     <meta name="twitter:description" content="{{ $metas['meta_description'] ?? '' }}" />
     @if (!empty($settings['logo']))
         <meta name="twitter:image" content="{{ $settings['logo'] }}" />
     @endif
 
     @vite('resources/css/app.css')
+   
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css">
     <style>
         .swiper-slide {
@@ -154,6 +156,7 @@
     </script>
     {{ $js ?? ''}}
     @livewireScripts
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 
 </html>

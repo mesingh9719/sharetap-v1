@@ -1,3 +1,4 @@
+<div>
 <section class="py-24 bg-gradient-to-br from-purple-700 to-indigo-800 relative overflow-hidden text-white">
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto mb-16 text-center">
@@ -23,10 +24,10 @@
                     </div>
                 @endforeach
             </div>
-            <button class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-yellow-400 text-purple-800 rounded-full p-3 focus:outline-none hover:bg-white transition duration-300" onclick="slideFeatures(-1)">
+            <button id="prevButton" class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-yellow-400 text-purple-800 rounded-full p-3 focus:outline-none hover:bg-white transition duration-300" onclick="slideFeatures(-1)">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
             </button>
-            <button class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-yellow-400 text-purple-800 rounded-full p-3 focus:outline-none hover:bg-white transition duration-300" onclick="slideFeatures(1)">
+            <button id="nextButton" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-yellow-400 text-purple-800 rounded-full p-3 focus:outline-none hover:bg-white transition duration-300" onclick="slideFeatures(1)">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </button>
         </div>
@@ -38,4 +39,4 @@
         <div class="absolute bottom-1/4 right-0 w-64 h-64 bg-indigo-500 rounded-full mix-blend-soft-light filter blur-3xl opacity-30 animate-pulse animation-delay-1000"></div>
     </div>
 </section>
-
+</div>
