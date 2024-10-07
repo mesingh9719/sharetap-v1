@@ -1,56 +1,42 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-    <div x-data="imageUploadHandler()" class="space-y-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Profile Picture Upload -->
-        <div>
-            <label for="profile_picture" class="block mb-2 font-semibold text-gray-700">Profile Picture</label>
-            <div
-                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-indigo-500 transition-colors duration-300 cursor-pointer"
-                @click="selectFile('profile')">
-                <div class="space-y-1 text-center" x-show="!profileImagePreview">
-                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <div class="flex text-sm text-gray-600">
-                        <span class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                            Upload a file
-                        </span>
-                        <p class="pl-1">or drag and drop</p>
+        <div class=" bg-white rounded-xl">
+            <label for="profile_picture" class="block mb-2 text-lg font-semibold text-gray-700">
+                Profile Picture
+            </label>
+            <div class="relative">
+                <input type="file" name="profile_picture" id="profile_picture" class="hidden" accept="image/*" onchange="previewImage(event, 'profile-preview')">
+                <label for="profile_picture" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                    <div id="profile-preview" class="flex flex-col items-center justify-center pt-5 pb-6">
+                        <svg class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                        <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                     </div>
-                    <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-                </div>
-                <div x-show="profileImagePreview">
-                    <img :src="profileImagePreview" alt="Profile Picture Preview" class="w-full h-32 object-cover rounded-lg">
-                </div>
+                </label>
             </div>
         </div>
-
+    
         <!-- Cover Picture Upload -->
-        <div>
-            <label for="cover_picture" class="block mb-2 font-semibold text-gray-700">Cover Picture</label>
-            <div
-                class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-indigo-500 transition-colors duration-300 cursor-pointer"
-                @click="selectFile('cover')">
-                <div class="space-y-1 text-center" x-show="!coverImagePreview">
-                    <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <div class="flex text-sm text-gray-600">
-                        <span class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                            Upload a file
-                        </span>
-                        <p class="pl-1">or drag and drop</p>
+        <div class=" bg-white rounded-xl">
+            <label for="cover_picture" class="block mb-2 text-lg font-semibold text-gray-700">
+                Cover Picture
+            </label>
+            <div class="relative">
+                <input type="file" name="cover_picture" id="cover_picture" class="hidden" accept="image/*" onchange="previewImage(event, 'cover-preview')">
+                <label for="cover_picture" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                    <div id="cover-preview" class="flex flex-col items-center justify-center pt-5 pb-6">
+                        <svg class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                        <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
                     </div>
-                    <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
-                </div>
-                <div x-show="coverImagePreview">
-                    <img :src="coverImagePreview" alt="Cover Picture Preview" class="w-full h-32 object-cover rounded-lg">
-                </div>
+                </label>
             </div>
         </div>
-
-        <!-- Separate File Inputs for Profile and Cover -->
-        <input type="file" id="profileFileInput" class="hidden" accept="image/*" @change="handleFileSelect('profile', $event)" x-ref="profileFileInput">
-        <input type="file" id="coverFileInput" class="hidden" accept="image/*" @change="handleFileSelect('cover', $event)" x-ref="coverFileInput">
     </div>
 
 

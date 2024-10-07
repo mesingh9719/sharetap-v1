@@ -143,7 +143,8 @@
                                 <label for="profession" class="block mb-2 font-medium text-gray-700">Profession</label>
                                 <input type="text" id="profession" name="profession"
                                        class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
-                                       required @change="localStorage.setItem('profession', $event.target.value)">
+                                       @change="localStorage.setItem('profession', $event.target.value)"
+                                       :required="localStorage.getItem('profession') !== null">
                             </div>
                         </div>
                     </div>
@@ -177,7 +178,8 @@
                                 <label for="location" class="block mb-2 font-medium text-gray-700">Location</label>
                                 <input type="text" id="location" name="location"
                                        class="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out"
-                                       required @change="localStorage.setItem('location', $event.target.value)">
+                                       @change="localStorage.setItem('location', $event.target.value)"
+                                       :required="localStorage.getItem('location') !== null">
                             </div>
                         </div>
                     </div>
@@ -211,7 +213,7 @@
                                 class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
                             Next
                         </button>
-                        <button type="submit" x-show="step === 5"
+                        <button type="submit" x-show="step === 5" @click="submitForm()"
                                 class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
                             Create Card
                         </button>
@@ -223,39 +225,14 @@
 
     <x-slot:js>
         <script>
-            function imageUploadHandler() {
-    return {
-        profileImagePreview: null,
-        coverImagePreview: null,
-
-        selectFile(type) {
-            // Open the file input for the respective type (profile or cover)
-            if (type === 'profile') {
-                this.$refs.profileFileInput.click();
-            } else if (type === 'cover') {
-                this.$refs.coverFileInput.click();
-            }
-        },
-
-        handleFileSelect(type, event) {
-            const file = event.target.files[0];
-            if (file && file.type.startsWith('image/')) {
+            function previewImage(event, previewId) {
                 const reader = new FileReader();
-                reader.onload = (e) => {
-                    if (type === 'profile') {
-                        this.profileImagePreview = e.target.result;
-                    } else if (type === 'cover') {
-                        this.coverImagePreview = e.target.result;
-                    }
-                };
-                reader.readAsDataURL(file);
+                reader.onload = function() {
+                    const preview = document.getElementById(previewId);
+                    preview.innerHTML = `<img src="${reader.result}" class="object-cover w-full h-full rounded-lg" alt="Preview">`;
+                }
+                reader.readAsDataURL(event.target.files[0]);
             }
-            // Reset the input value to allow re-selecting the same file
-            event.target.value = null;
-        },
-    };
-}
-
-        </script>
+            </script>
     </x-slot:js>
 </x-front.layouts.app-layout>

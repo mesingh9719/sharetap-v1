@@ -57,9 +57,10 @@
     <div class="px-6 py-8 bg-gray-50">
       <button type="button" 
               class="w-full bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
-              @click="localStorage.setItem('selectedPlanId', '{{ $item->id }}'); step++;">
+              onclick="document.getElementById('selectedPlanId').value = '{{ $item->id }}';">
         Select Plan
       </button>
     </div>
   </div>
 @endforeach
+<input type="hidden" id="selectedPlanId" name="selected_plan_id" value="">
