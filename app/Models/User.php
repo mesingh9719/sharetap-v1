@@ -20,6 +20,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'profile_picture',
+        'cover_picture',
+        'dob',
+        'gender',
+        'phone',
+        'alternate_phone',
+        'alternate_email',
     ];
 
     /**
@@ -43,5 +50,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function userTemplate()
+    {
+        return $this->hasOne(UserTemplate::class);
     }
 }

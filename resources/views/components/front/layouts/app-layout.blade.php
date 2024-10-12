@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="{{ $settings['favicon'] ?? '' }}" type="image/png">
+    <link rel="icon" href="{{ $settings['site_favicon'] ?? '' }}" type="image/png">
 
     @if (!empty($metas))
         @if ($metas['meta_description'])
@@ -20,7 +20,7 @@
             <title>@yield('title') | {{ $settings['site_title'] ?? '' }}</title>
         @endif
     @else
-        <title>@yield('title') | {{ $settings['site_title'] ?? '' }}</title>
+        <title>@yield('title') | {{ $settings['site_description'] ?? '' }}</title>
         <meta name="description" content="">
         <meta name="keywords" content="">
     @endif
@@ -114,6 +114,7 @@
     <x-front.layouts.header />
     {{ $slot }}
     <x-front.layouts.footer />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
     <script>
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
@@ -156,7 +157,7 @@
     </script>
     {{ $js ?? ''}}
     @livewireScripts
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+   
 </body>
 
 </html>

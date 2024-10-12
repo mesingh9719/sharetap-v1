@@ -9,6 +9,7 @@
         
         <div class="relative overflow-hidden">
             <div class="flex transition-transform duration-300 ease-in-out" id="featureSlider">
+                
                 @foreach ($features as $feature)
                     <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-6">
                         <div class="mb-8 transform hover:scale-105 transition-transform duration-300">

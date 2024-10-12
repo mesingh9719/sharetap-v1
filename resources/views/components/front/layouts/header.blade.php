@@ -3,7 +3,7 @@
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
                 <a href="{{ url('/') }}" class="flex-shrink-0">
-                    <img class="h-8 w-auto" src="{{ $settings['logo'] ?? '' }}" alt="{{ config('app.name', 'Laravel') }} Logo">
+                    <img class="h-8 w-auto" src="{{ $settings['site_logo'] ?? '' }}" alt="{{ config('app.name', 'Laravel') }} Logo">
                 </a>
                 <nav class="hidden md:ml-6 md:flex md:space-x-8">
                     <a href="{{ url('/#frontHomeTab') }}" class="text-gray-900 hover:bg-gray-50 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Home</a>

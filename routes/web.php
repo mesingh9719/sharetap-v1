@@ -23,3 +23,6 @@ Route::prefix('card')->group(function () {
     Route::get('/templates', [TemplateController::class, 'templates'])->name('card.templates');
     Route::post('/store', [CardController::class, 'store'])->name('card.store');
 });
+
+
+Route::get('/{unique_url}', [CardController::class, 'show'])->name('front.card.show');

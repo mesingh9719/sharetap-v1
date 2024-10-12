@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('template_id')->constrained('templates');
             $table->foreignId('plan_id');
-            $table->text('unique_url')->unique();
+            $table->string('unique_url',255)->unique();
             $table->string('profession')->nullable();
             $table->text('social_medias')->nullable();
             $table->timestamps();

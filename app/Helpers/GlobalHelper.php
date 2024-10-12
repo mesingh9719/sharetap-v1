@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\Setting;
+use App\Models\SubscriptionPlan;
 use Illuminate\Support\Facades\DB;
 
 class GlobalHelper
@@ -23,5 +24,15 @@ class GlobalHelper
             return $settings[$key]->value;
         } catch (\Exception $e) {
         }
+    }
+
+    public static function uploadFile($file, $path = 'uploads'){
+        if ($file) {
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+        } else {
+            return '';
+        }
+        $file->move(public_path($path), $fileName);
+        return $path.'/'.$fileName;
     }
 }
