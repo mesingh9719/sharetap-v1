@@ -5,217 +5,205 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     @vite('resources/css/app.css')
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
-    <title>John Doe | UI/UX Developer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Add custom fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        .gradient-bg {
-            background: linear-gradient(90deg, #4F46E5, #7C3AED);
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f0f0;
         }
     </style>
 </head>
 
-<body class="font-inter bg-gray-50">
-    <header class="relative">
-        <div class="cover-image h-80 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/1765033/pexels-photo-1765033.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');"></div>
-        <div class="profile-info absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 text-cente">
-            <img src="https://images.pexels.com/photos/943084/pexels-photo-943084.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="John Doe" class="profile-picture w-40 h-40 rounded-full border-4 border-indigo-500 mx-auto mb-4">
-            <h1 class="text-3xl font-bold text-gray-800">John Doe</h1>
-            <p class="text-xl text-indigo-600">UI/UX Developer</p>
+<body class="bg-gray-100 text-gray-800 min-h-screen">
+    <div class="max-w-md mx-auto bg-white shadow-lg">
+        <!-- Header Image -->
+        <div class="relative">
+            <img src="https://images.pexels.com/photos/28626107/pexels-photo-28626107/free-photo-of-chrysler-building-in-new-york-city-skyline.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Header" class="w-full h-48 object-cover">
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                <h1 class="text-white text-2xl font-bold">Leslie Alexander</h1>
+                <p class="text-white text-sm">Business Consultant</p>
+            </div>
         </div>
-    </header>
 
-    <nav class="gradient-bg py-4 mt-32 sticky top-0 z-10">
-        <ul class="flex justify-center space-x-8">
-            <li><a href="#about" class="text-white hover:text-indigo-200 transition duration-300">About</a></li>
-            <li><a href="#services" class="text-white hover:text-indigo-200 transition duration-300">Services</a></li>
-            <li><a href="#portfolio" class="text-white hover:text-indigo-200 transition duration-300">Portfolio</a></li>
-            <li><a href="#testimonials" class="text-white hover:text-indigo-200 transition duration-300">Testimonials</a></li>
-            <li><a href="#contact" class="text-white hover:text-indigo-200 transition duration-300">Contact</a></li>
-        </ul>
-    </nav>
-
-    <main class="container mx-auto px-4 py-12">
-        <section id="about" class="mb-16" data-aos="fade-up">
-            <h2 class="text-4xl font-bold mb-6 text-center text-gray-800">About Me</h2>
-            <p class="mb-6 text-lg text-gray-600 max-w-3xl mx-auto text-center">I'm a passionate UI/UX developer with 5+ years of experience creating intuitive and visually appealing digital experiences. My goal is to bridge the gap between user needs and business objectives through thoughtful design and efficient code.</p>
-            <div class="basic-info grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
-                <div class="bg-white p-4 rounded-lg shadow-md text-center">
-                    <i class="fas fa-map-marker-alt text-2xl text-indigo-500 mb-2"></i>
-                    <p>New York, NY</p>
-                </div>
-                <div class="bg-white p-4 rounded-lg shadow-md text-center">
-                    <i class="fas fa-envelope text-2xl text-indigo-500 mb-2"></i>
-                    <p>john@example.com</p>
-                </div>
-                <div class="bg-white p-4 rounded-lg shadow-md text-center">
-                    <i class="fas fa-phone text-2xl text-indigo-500 mb-2"></i>
-                    <p>(123) 456-7890</p>
+        <!-- Profile Section -->
+        <div class="p-4">
+            <div class="flex items-center justify-between mb-4">
+                <img src="https://images.pexels.com/photos/10472582/pexels-photo-10472582.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Leslie Alexander" class="w-24 h-24 rounded-full border-4 border-white shadow-lg">
+                <div class="flex space-x-2">
+                    <a href="#" class="bg-blue-500 p-2 rounded-full"><i class="fab fa-facebook-f text-white"></i></a>
+                    <a href="#" class="bg-red-500 p-2 rounded-full"><i class="fab fa-instagram text-white"></i></a>
+                    <a href="#" class="bg-blue-400 p-2 rounded-full"><i class="fab fa-linkedin-in text-white"></i></a>
+                    <a href="#" class="bg-blue-300 p-2 rounded-full"><i class="fab fa-twitter text-white"></i></a>
+                    <a href="#" class="bg-red-600 p-2 rounded-full"><i class="fab fa-youtube text-white"></i></a>
                 </div>
             </div>
-        </section>
 
-        <section id="services" class="mb-16" data-aos="fade-up">
-            <h2 class="text-4xl font-bold mb-8 text-center text-gray-800">My Services</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="service-item p-6 bg-white rounded-lg shadow-md transition duration-300 hover:shadow-lg hover:transform hover:-translate-y-1">
-                    <i class="fas fa-paint-brush text-4xl mb-4 text-indigo-500"></i>
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">UI Design</h3>
-                    <p class="text-gray-600">Creating visually stunning and intuitive user interfaces that captivate and engage.</p>
+            <!-- Contact Information -->
+            <div class="space-y-2 mb-4">
+                <div class="flex items-center">
+                    <i class="fas fa-envelope text-orange-500 mr-2"></i>
+                    <span>leslie@example.com</span>
                 </div>
-                <div class="service-item p-6 bg-white rounded-lg shadow-md transition duration-300 hover:shadow-lg hover:transform hover:-translate-y-1">
-                    <i class="fas fa-users text-4xl mb-4 text-indigo-500"></i>
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">UX Research</h3>
-                    <p class="text-gray-600">Conducting in-depth user research to inform and enhance design decisions.</p>
+                <div class="flex items-center">
+                    <i class="fas fa-phone text-orange-500 mr-2"></i>
+                    <span>+1 (555) 000-0000</span>
                 </div>
-                <div class="service-item p-6 bg-white rounded-lg shadow-md transition duration-300 hover:shadow-lg hover:transform hover:-translate-y-1">
-                    <i class="fas fa-code text-4xl mb-4 text-indigo-500"></i>
-                    <h3 class="text-2xl font-semibold mb-3 text-gray-800">Front-end Development</h3>
-                    <p class="text-gray-600">Implementing designs with clean, efficient, and responsive code.</p>
+                <div class="flex items-center">
+                    <i class="fas fa-globe text-orange-500 mr-2"></i>
+                    <span>www.example.com</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-map-marker-alt text-orange-500 mr-2"></i>
+                    <span>New York, USA</span>
                 </div>
             </div>
-        </section>
 
-        <section id="portfolio" class="mb-16" data-aos="fade-up">
-            <h2 class="text-4xl font-bold mb-8 text-center text-gray-800">My Portfolio</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="portfolio-item bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-lg">
-                    <img src="https://images.pexels.com/photos/8250924/pexels-photo-8250924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Project 1" class="w-full h-56 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold mb-2 text-gray-800">Project 1</h3>
-                        <p class="text-gray-600 mb-4">An innovative web application designed to streamline workflow and boost productivity.</p>
-                        <a href="#" class="text-indigo-500 font-semibold hover:text-indigo-600 transition duration-300">View Project <i class="fas fa-arrow-right ml-1"></i></a>
+            <!-- Our Services -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-4 text-gray-800">Our Services</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-orange-100 p-4 rounded-lg text-center">
+                        <i class="fas fa-chart-line text-orange-500 text-3xl mb-2"></i>
+                        <h4 class="font-bold text-gray-800 mb-2">Strategy Consulting</h4>
+                        <p class="text-xs text-gray-600">Expert guidance for business growth and optimization.</p>
                     </div>
-                </div>
-                <div class="portfolio-item bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-lg">
-                    <img src="https://images.pexels.com/photos/12914430/pexels-photo-12914430.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Project 2" class="w-full h-56 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold mb-2 text-gray-800">Project 2</h3>
-                        <p class="text-gray-600 mb-4">A responsive e-commerce platform with a focus on user experience and conversion optimization.</p>
-                        <a href="#" class="text-indigo-500 font-semibold hover:text-indigo-600 transition duration-300">View Project <i class="fas fa-arrow-right ml-1"></i></a>
-                    </div>
-                </div>
-                <!-- Add one more portfolio item for balance -->
-                <div class="portfolio-item bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-lg">
-                    <img src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Project 3" class="w-full h-56 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold mb-2 text-gray-800">Project 3</h3>
-                        <p class="text-gray-600 mb-4">A mobile app redesign that significantly improved user engagement and retention rates.</p>
-                        <a href="#" class="text-indigo-500 font-semibold hover:text-indigo-600 transition duration-300">View Project <i class="fas fa-arrow-right ml-1"></i></a>
+                    <div class="bg-blue-100 p-4 rounded-lg text-center">
+                        <i class="fas fa-bullhorn text-blue-500 text-3xl mb-2"></i>
+                        <h4 class="font-bold text-gray-800 mb-2">Marketing Consulting</h4>
+                        <p class="text-xs text-gray-600">Innovative strategies to boost your market presence.</p>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section id="testimonials" class="mb-16" data-aos="fade-up">
-            <h2 class="text-4xl font-bold mb-8 text-center text-gray-800">Testimonials</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="testimonial-item p-6 bg-white rounded-lg shadow-md transition duration-300 hover:shadow-lg">
-                    <i class="fas fa-quote-left text-4xl mb-4 text-indigo-500"></i>
-                    <p class="mb-4 text-gray-600">"John is an exceptional UI/UX developer. His attention to detail and user-centric approach resulted in a significant improvement in our app's usability."</p>
-                    <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Jane Smith" class="w-12 h-12 rounded-full mr-4">
+            <!-- Make an Appointment -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-4 text-gray-800">Make an Appointment</h3>
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <input type="date" class="w-full bg-white rounded-lg p-2 text-gray-800 mb-4 border border-gray-300">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="bg-white p-2 rounded-lg text-center border border-gray-300">
+                            <p class="font-bold">09:00 - 10:00</p>
+                        </div>
+                        <div class="bg-white p-2 rounded-lg text-center border border-gray-300">
+                            <p class="font-bold">10:00 - 11:00</p>
+                        </div>
+                        <div class="bg-white p-2 rounded-lg text-center border border-gray-300">
+                            <p class="font-bold">11:00 - 12:00</p>
+                        </div>
+                        <div class="bg-white p-2 rounded-lg text-center border border-gray-300">
+                            <p class="font-bold">12:00 - 13:00</p>
+                        </div>
+                    </div>
+                    <button class="w-full bg-orange-500 text-white py-2 rounded-full font-bold hover:bg-orange-600 transition duration-300">Make Appointment</button>
+                </div>
+            </div>
+
+            <!-- Gallery -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-4 text-gray-800">Gallery</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="https://images.pexels.com/photos/19797271/pexels-photo-19797271/free-photo-of-pink-and-peach-stationery.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Gallery 1" class="w-full h-32 object-cover rounded-lg">
+                    <img src="https://images.pexels.com/photos/8364021/pexels-photo-8364021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Gallery 2" class="w-full h-32 object-cover rounded-lg">
+                </div>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-4 text-gray-800">Testimonials</h3>
+                <div class="bg-gray-100 p-4 rounded-lg relative">
+                    <p class="text-sm italic mb-2 text-gray-700">"Leslie's consulting services have been invaluable to our company's growth. Her insights and strategies have helped us achieve remarkable results."</p>
+                    <p class="text-xs text-gray-600">- John Doe, CEO</p>
+                    <img src="https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="John Doe" class="w-12 h-12 rounded-full absolute -top-6 -right-6 border-4 border-white">
+                </div>
+            </div>
+
+            <!-- Products -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-4 text-gray-800">Products</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <img src="https://images.pexels.com/photos/28626107/pexels-photo-28626107/free-photo-of-chrysler-building-in-new-york-city-skyline.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="E-Book" class="w-full h-32 object-cover rounded-lg mb-2">
+                        <h4 class="font-bold mb-1">E-Book</h4>
+                        <p class="text-sm text-gray-600">$19.99</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <img src="https://images.pexels.com/photos/92866/pexels-photo-92866.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Video Course" class="w-full h-32 object-cover rounded-lg mb-2">
+                        <h4 class="font-bold mb-1">Video Course</h4>
+                        <p class="text-sm text-gray-600">$49.99</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-4 text-gray-800">Blog</h3>
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-4">
+                        <img src="https://images.pexels.com/photos/8364021/pexels-photo-8364021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Blog 1" class="w-24 h-24 object-cover rounded-lg">
                         <div>
-                            <p class="font-semibold text-gray-800">Jane Smith</p>
-                            <p class="text-sm text-gray-600">CEO of TechCorp</p>
+                            <h4 class="font-bold mb-1">Business Strategy</h4>
+                            <p class="text-sm text-gray-600">Tips for developing effective...</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <img src="https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Blog 2" class="w-24 h-24 object-cover rounded-lg">
+                        <div>
+                            <h4 class="font-bold mb-1">Marketing Trends</h4>
+                            <p class="text-sm text-gray-600">Latest trends in digital marketing...</p>
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-item p-6 bg-white rounded-lg shadow-md transition duration-300 hover:shadow-lg">
-                    <i class="fas fa-quote-left text-4xl mb-4 text-indigo-500"></i>
-                    <p class="mb-4 text-gray-600">"Working with John was a pleasure. He quickly understood our needs and delivered a beautiful, functional design that exceeded our expectations."</p>
-                    <div class="flex items-center">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mike Johnson" class="w-12 h-12 rounded-full mr-4">
-                        <div>
-                            <p class="font-semibold text-gray-800">Mike Johnson</p>
-                            <p class="text-sm text-gray-600">Founder of StartupX</p>
-                        </div>
-                    </div>
+            </div>
+
+            <!-- Business Hours -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-4 text-gray-800">Business Hours</h3>
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <ul class="space-y-2">
+                        <li class="flex justify-between">
+                            <span>Monday</span>
+                            <span>09:00 AM - 05:00 PM</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Tuesday</span>
+                            <span>09:00 AM - 05:00 PM</span>
+                        </li>
+                        <!-- ... other days ... -->
+                    </ul>
                 </div>
             </div>
-        </section>
 
-        <section id="business-hours" class="mb-16" data-aos="fade-up">
-            <h2 class="text-4xl font-bold mb-8 text-center text-gray-800">Business Hours</h2>
-            <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
-                <ul class="space-y-4">
-                    <li class="flex justify-between items-center border-b pb-2">
-                        <span class="font-semibold text-gray-800">Monday - Friday</span>
-                        <span class="text-indigo-600">9:00 AM - 5:00 PM</span>
-                    </li>
-                    <li class="flex justify-between items-center border-b pb-2">
-                        <span class="font-semibold text-gray-800">Saturday</span>
-                        <span class="text-indigo-600">10:00 AM - 2:00 PM</span>
-                    </li>
-                    <li class="flex justify-between items-center">
-                        <span class="font-semibold text-gray-800">Sunday</span>
-                        <span class="text-red-500">Closed</span>
-                    </li>
-                </ul>
+            <!-- QR Code -->
+            <div class="mb-6 text-center">
+                <img src="{{ asset('assets/images/logo/dummy-qr-code.png') }}"  alt="QR Code" class="w-32 h-32 mx-auto mb-2">
+                <button class="bg-orange-500 text-white py-2 px-4 rounded-full font-bold hover:bg-orange-600 transition duration-300">Save Contact</button>
             </div>
-        </section>
 
-        <section id="contact" class="mb-16" data-aos="fade-up">
-            <h2 class="text-4xl font-bold mb-8 text-center text-gray-800">Contact Me</h2>
-            <form class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8">
-                <div class="mb-6">
-                    <label for="name" class="block mb-2 text-sm font-medium text-gray-700">Name</label>
-                    <input type="text" id="name" name="name" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
-                </div>
-                <div class="mb-6">
-                    <label for="email" class="block mb-2 text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" id="email" name="email" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
-                </div>
-                <div class="mb-6">
-                    <label for="message" class="block mb-2 text-sm font-medium text-gray-700">Message</label>
-                    <textarea id="message" name="message" rows="4" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" required></textarea>
-                </div>
-                <button type="submit" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-indigo-700 transition duration-300">Send Message</button>
-            </form>
-        </section>
-
-        <section id="qr-code" class="mb-16 text-center" data-aos="fade-up">
-            <h2 class="text-4xl font-bold mb-8 text-gray-800">Scan My QR Code</h2>
-            <div class="bg-white rounded-lg shadow-md p-8 inline-block">
-                <img src="{{ asset('assets/images/logo/dummy-qr-code.png') }}" alt="QR Code" class="w-48 h-48 mx-auto">
-                <p class="mt-4 text-gray-600">Scan this QR code to save my contact information</p>
+            <!-- Contact Us Form -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-4 text-gray-800">Contact Us</h3>
+                <form class="space-y-4">
+                    <input type="text" placeholder="Full Name" class="w-full bg-gray-100 rounded-lg p-2 text-gray-800">
+                    <input type="email" placeholder="Email Address" class="w-full bg-gray-100 rounded-lg p-2 text-gray-800">
+                    <input type="tel" placeholder="Phone Number" class="w-full bg-gray-100 rounded-lg p-2 text-gray-800">
+                    <textarea placeholder="Your Message" rows="4" class="w-full bg-gray-100 rounded-lg p-2 text-gray-800"></textarea>
+                    <button type="submit" class="w-full bg-orange-500 text-white py-2 rounded-full font-bold hover:bg-orange-600 transition duration-300">Send Message</button>
+                </form>
             </div>
-        </section>
-    </main>
 
-    <footer class="gradient-bg text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="social-links flex justify-center space-x-6 mb-6">
-                <a href="#" aria-label="LinkedIn" class="text-3xl hover:text-indigo-200 transition duration-300"><i class="fab fa-linkedin"></i></a>
-                <a href="#" aria-label="GitHub" class="text-3xl hover:text-indigo-200 transition duration-300"><i class="fab fa-github"></i></a>
-                <a href="#" aria-label="Dribbble" class="text-3xl hover:text-indigo-200 transition duration-300"><i class="fab fa-dribbble"></i></a>
-                <a href="#" aria-label="Behance" class="text-3xl hover:text-indigo-200 transition duration-300"><i class="fab fa-behance"></i></a>
+            <!-- Create Your vCard -->
+            <div class="text-center mb-6">
+                <a href="#" class="bg-blue-500 text-white py-2 px-4 rounded-full font-bold hover:bg-blue-600 transition duration-300">Create Your vCard</a>
             </div>
-            <p class="text-center text-lg">&copy; 2023 John Doe. All rights reserved.</p>
         </div>
+    </div>
+
+    <footer class="bg-orange-500 text-center py-4 mt-8">
+        <p class="text-sm text-white">Add to Contacts</p>
     </footer>
-
-    <script>
-        // Initialize AOS (Animate on Scroll)
-        AOS.init({
-            duration: 1000,
-            once: true,
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>
