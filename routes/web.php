@@ -26,3 +26,5 @@ Route::prefix('card')->group(function () {
 
 
 Route::get('/{unique_url}', [CardController::class, 'show'])->name('front.card.show');
+
+include 'admin.php';

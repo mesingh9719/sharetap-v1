@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             AppFeatureSeeder::class,
             SubscriptionPlanSeeder::class,
             TemplateSeeder::class,
+            SettingSeeder::class,
         ]);
     }
 }
