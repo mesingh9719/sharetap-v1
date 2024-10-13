@@ -19,7 +19,7 @@ class CardController extends Controller
     }
 
     public function store(Request $request)
-    { 
+    {
         $userData = [
             'name' => $request->full_name,
             'dateOfBirth' => $request->date_of_birth,
@@ -32,9 +32,9 @@ class CardController extends Controller
 
         $templateData = [
             'plan_id' => $request->selected_plan_id,
-            'template_ids' => $request->templates,
+            'templates' => $request->templates,
             'profession' => $request->profession,
-            'active_template_id' => $request->templates[0],
+            'template_id' => $request->templates[0],
         ];
 
         $socialMedias = [
@@ -45,7 +45,7 @@ class CardController extends Controller
             'location' => $request->location,
         ];
 
-        
+
 
         $image = GlobalHelper::uploadFile($request->profile_picture,'profile');
         $userData['profile_picture'] = $image ?? '';
@@ -65,8 +65,7 @@ class CardController extends Controller
     public function show($unique_url)
     {
         $userTemplate = UserTemplate::where('unique_url', $unique_url)->first();
-        $template = Template::find($userTemplate->active_template_id);
-        $templateView = $template->name;
-        return view('front.templates.user_templates.' . $templateView, compact('userTemplate'));
+        $template = Template::find($userTemplate->template_id);
+        return view('front.templates.index', compact('template','userTemplate'));
     }
 }

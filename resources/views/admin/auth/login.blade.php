@@ -17,9 +17,15 @@
                         </svg>
                     </div>
                     <h2 class="text-3xl font-bold text-gray-800">Admin Login</h2>
-                    <p class="text-sm text-gray-600">Enter your credentials to access the admin panel</p>
+                    @if ($errors->has('error'))
+                        <div class="bg-red-500 text-white p-2 rounded-md">
+                            {{ $errors->first('error') }}
+                        </div>
+                    @else
+                        <p class="text-sm text-gray-600">Enter your credentials to access the admin panel</p>
+                    @endif
                 </div>
-                <form action="#" method="POST" class="space-y-6">
+                <form action="{{ route('admin.auth.login.submit') }}" method="POST" class="space-y-6">
                     @csrf
                     <div class="space-y-2">
                         <label for="email" class="text-sm font-medium text-gray-700">Email</label>
