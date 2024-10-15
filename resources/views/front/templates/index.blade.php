@@ -4,206 +4,176 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>John Doe - Web Developer</title>
     @vite('resources/css/app.css')
-    <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Add custom fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f0f0f0;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
 
-<body class="bg-gray-100 text-gray-800 min-h-screen">
-    <div class="max-w-md mx-auto bg-white shadow-lg">
-        <!-- Header Image -->
-        <div class="relative">
-            <img src="https://images.pexels.com/photos/28626107/pexels-photo-28626107/free-photo-of-chrysler-building-in-new-york-city-skyline.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Header" class="w-full h-48 object-cover">
-            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-                <h1 class="text-white text-2xl font-bold">Leslie Alexander</h1>
-                <p class="text-white text-sm">Business Consultant</p>
+<body x-data="{ darkMode: false }" :class="{ 'dark': darkMode }" class="bg-gray-50 dark:bg-gray-900 font-sans text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-md p-4 sticky top-0 z-10 transition-colors duration-300">
+        <nav class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">John Doe</a>
+            <ul class="hidden md:flex space-x-6">
+                <li><a href="#about" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300">About</a></li>
+                <li><a href="#skills" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300">Skills</a></li>
+                <li><a href="#projects" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300">Projects</a></li>
+                <li><a href="#contact" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300">Contact</a></li>
+            </ul>
+            <div class="flex items-center space-x-4">
+                <button @click="darkMode = !darkMode" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 transition duration-300">
+                    <i class="fas" :class="darkMode ? 'fa-sun' : 'fa-moon'"></i>
+                </button>
+                <button class="md:hidden" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
-        </div>
+        </nav>
+    </header>
 
-        <!-- Profile Section -->
-        <div class="p-4">
-            <div class="flex items-center justify-between mb-4">
-                <img src="https://images.pexels.com/photos/10472582/pexels-photo-10472582.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Leslie Alexander" class="w-24 h-24 rounded-full border-4 border-white shadow-lg">
-                <div class="flex space-x-2">
-                    <a href="#" class="bg-blue-500 p-2 rounded-full"><i class="fab fa-facebook-f text-white"></i></a>
-                    <a href="#" class="bg-red-500 p-2 rounded-full"><i class="fab fa-instagram text-white"></i></a>
-                    <a href="#" class="bg-blue-400 p-2 rounded-full"><i class="fab fa-linkedin-in text-white"></i></a>
-                    <a href="#" class="bg-blue-300 p-2 rounded-full"><i class="fab fa-twitter text-white"></i></a>
-                    <a href="#" class="bg-red-600 p-2 rounded-full"><i class="fab fa-youtube text-white"></i></a>
-                </div>
-            </div>
-
-            <!-- Contact Information -->
-            <div class="space-y-2 mb-4">
-                <div class="flex items-center">
-                    <i class="fas fa-envelope text-orange-500 mr-2"></i>
-                    <span>leslie@example.com</span>
-                </div>
-                <div class="flex items-center">
-                    <i class="fas fa-phone text-orange-500 mr-2"></i>
-                    <span>+1 (555) 000-0000</span>
-                </div>
-                <div class="flex items-center">
-                    <i class="fas fa-globe text-orange-500 mr-2"></i>
-                    <span>www.example.com</span>
-                </div>
-                <div class="flex items-center">
-                    <i class="fas fa-map-marker-alt text-orange-500 mr-2"></i>
-                    <span>New York, USA</span>
-                </div>
-            </div>
-
-            <!-- Our Services -->
-            <div class="mb-6">
-                <h3 class="text-xl font-bold mb-4 text-gray-800">Our Services</h3>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-orange-100 p-4 rounded-lg text-center">
-                        <i class="fas fa-chart-line text-orange-500 text-3xl mb-2"></i>
-                        <h4 class="font-bold text-gray-800 mb-2">Strategy Consulting</h4>
-                        <p class="text-xs text-gray-600">Expert guidance for business growth and optimization.</p>
-                    </div>
-                    <div class="bg-blue-100 p-4 rounded-lg text-center">
-                        <i class="fas fa-bullhorn text-blue-500 text-3xl mb-2"></i>
-                        <h4 class="font-bold text-gray-800 mb-2">Marketing Consulting</h4>
-                        <p class="text-xs text-gray-600">Innovative strategies to boost your market presence.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Make an Appointment -->
-            <div class="mb-6">
-                <h3 class="text-xl font-bold mb-4 text-gray-800">Make an Appointment</h3>
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <input type="date" class="w-full bg-white rounded-lg p-2 text-gray-800 mb-4 border border-gray-300">
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div class="bg-white p-2 rounded-lg text-center border border-gray-300">
-                            <p class="font-bold">09:00 - 10:00</p>
-                        </div>
-                        <div class="bg-white p-2 rounded-lg text-center border border-gray-300">
-                            <p class="font-bold">10:00 - 11:00</p>
-                        </div>
-                        <div class="bg-white p-2 rounded-lg text-center border border-gray-300">
-                            <p class="font-bold">11:00 - 12:00</p>
-                        </div>
-                        <div class="bg-white p-2 rounded-lg text-center border border-gray-300">
-                            <p class="font-bold">12:00 - 13:00</p>
-                        </div>
-                    </div>
-                    <button class="w-full bg-orange-500 text-white py-2 rounded-full font-bold hover:bg-orange-600 transition duration-300">Make Appointment</button>
-                </div>
-            </div>
-
-            <!-- Gallery -->
-            <div class="mb-6">
-                <h3 class="text-xl font-bold mb-4 text-gray-800">Gallery</h3>
-                <div class="grid grid-cols-2 gap-4">
-                    <img src="https://images.pexels.com/photos/19797271/pexels-photo-19797271/free-photo-of-pink-and-peach-stationery.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Gallery 1" class="w-full h-32 object-cover rounded-lg">
-                    <img src="https://images.pexels.com/photos/8364021/pexels-photo-8364021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Gallery 2" class="w-full h-32 object-cover rounded-lg">
-                </div>
-            </div>
-
-            <!-- Testimonials -->
-            <div class="mb-6">
-                <h3 class="text-xl font-bold mb-4 text-gray-800">Testimonials</h3>
-                <div class="bg-gray-100 p-4 rounded-lg relative">
-                    <p class="text-sm italic mb-2 text-gray-700">"Leslie's consulting services have been invaluable to our company's growth. Her insights and strategies have helped us achieve remarkable results."</p>
-                    <p class="text-xs text-gray-600">- John Doe, CEO</p>
-                    <img src="https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="John Doe" class="w-12 h-12 rounded-full absolute -top-6 -right-6 border-4 border-white">
-                </div>
-            </div>
-
-            <!-- Products -->
-            <div class="mb-6">
-                <h3 class="text-xl font-bold mb-4 text-gray-800">Products</h3>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-white p-4 rounded-lg shadow-md">
-                        <img src="https://images.pexels.com/photos/28626107/pexels-photo-28626107/free-photo-of-chrysler-building-in-new-york-city-skyline.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="E-Book" class="w-full h-32 object-cover rounded-lg mb-2">
-                        <h4 class="font-bold mb-1">E-Book</h4>
-                        <p class="text-sm text-gray-600">$19.99</p>
-                    </div>
-                    <div class="bg-white p-4 rounded-lg shadow-md">
-                        <img src="https://images.pexels.com/photos/92866/pexels-photo-92866.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Video Course" class="w-full h-32 object-cover rounded-lg mb-2">
-                        <h4 class="font-bold mb-1">Video Course</h4>
-                        <p class="text-sm text-gray-600">$49.99</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Blog -->
-            <div class="mb-6">
-                <h3 class="text-xl font-bold mb-4 text-gray-800">Blog</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center space-x-4">
-                        <img src="https://images.pexels.com/photos/8364021/pexels-photo-8364021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Blog 1" class="w-24 h-24 object-cover rounded-lg">
-                        <div>
-                            <h4 class="font-bold mb-1">Business Strategy</h4>
-                            <p class="text-sm text-gray-600">Tips for developing effective...</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <img src="https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Blog 2" class="w-24 h-24 object-cover rounded-lg">
-                        <div>
-                            <h4 class="font-bold mb-1">Marketing Trends</h4>
-                            <p class="text-sm text-gray-600">Latest trends in digital marketing...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Business Hours -->
-            <div class="mb-6">
-                <h3 class="text-xl font-bold mb-4 text-gray-800">Business Hours</h3>
-                <div class="bg-gray-100 p-4 rounded-lg">
-                    <ul class="space-y-2">
-                        <li class="flex justify-between">
-                            <span>Monday</span>
-                            <span>09:00 AM - 05:00 PM</span>
-                        </li>
-                        <li class="flex justify-between">
-                            <span>Tuesday</span>
-                            <span>09:00 AM - 05:00 PM</span>
-                        </li>
-                        <!-- ... other days ... -->
-                    </ul>
-                </div>
-            </div>
-
-            <!-- QR Code -->
-            <div class="mb-6 text-center">
-                <img src="{{ asset('assets/images/logo/dummy-qr-code.png') }}"  alt="QR Code" class="w-32 h-32 mx-auto mb-2">
-                <button class="bg-orange-500 text-white py-2 px-4 rounded-full font-bold hover:bg-orange-600 transition duration-300">Save Contact</button>
-            </div>
-
-            <!-- Contact Us Form -->
-            <div class="mb-6">
-                <h3 class="text-xl font-bold mb-4 text-gray-800">Contact Us</h3>
-                <form class="space-y-4">
-                    <input type="text" placeholder="Full Name" class="w-full bg-gray-100 rounded-lg p-2 text-gray-800">
-                    <input type="email" placeholder="Email Address" class="w-full bg-gray-100 rounded-lg p-2 text-gray-800">
-                    <input type="tel" placeholder="Phone Number" class="w-full bg-gray-100 rounded-lg p-2 text-gray-800">
-                    <textarea placeholder="Your Message" rows="4" class="w-full bg-gray-100 rounded-lg p-2 text-gray-800"></textarea>
-                    <button type="submit" class="w-full bg-orange-500 text-white py-2 rounded-full font-bold hover:bg-orange-600 transition duration-300">Send Message</button>
-                </form>
-            </div>
-
-            <!-- Create Your vCard -->
-            <div class="text-center mb-6">
-                <a href="#" class="bg-blue-500 text-white py-2 px-4 rounded-full font-bold hover:bg-blue-600 transition duration-300">Create Your vCard</a>
-            </div>
-        </div>
+    <!-- Mobile Menu -->
+    <div class="md:hidden bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 hidden transition-colors duration-300" id="mobile-menu">
+        <ul class="space-y-2">
+            <li><a href="#about" class="block hover:text-indigo-600 dark:hover:text-indigo-400">About</a></li>
+            <li><a href="#skills" class="block hover:text-indigo-600 dark:hover:text-indigo-400">Skills</a></li>
+            <li><a href="#projects" class="block hover:text-indigo-600 dark:hover:text-indigo-400">Projects</a></li>
+            <li><a href="#contact" class="block hover:text-indigo-600 dark:hover:text-indigo-400">Contact</a></li>
+        </ul>
     </div>
 
-    <footer class="bg-orange-500 text-center py-4 mt-8">
-        <p class="text-sm text-white">Add to Contacts</p>
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-20 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="h-full w-full">
+                <g fill-rule="evenodd"><circle cx="25" cy="25" r="25"/><circle cx="75" cy="75" r="25"/></g>
+            </svg>
+        </div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fade-in-up">Welcome to My Portfolio</h1>
+            <p class="text-xl mb-8 animate-fade-in-up animation-delay-200">I'm a passionate web developer creating amazing digital experiences</p>
+            <a href="#contact" class="bg-white text-indigo-600 font-bold py-3 px-6 rounded-full hover:bg-indigo-100 transition duration-300 animate-fade-in-up animation-delay-400">Get in Touch</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <!-- About Section -->
+        <section id="about" class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 text-center">About Me</h2>
+            <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 flex flex-col md:flex-row items-center transition-colors duration-300">
+                <img src="https://via.placeholder.com/300" alt="John Doe" class="w-48 h-48 rounded-full mb-6 md:mb-0 md:mr-8">
+                <div>
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">Hi, I'm John Doe, a web developer with 5 years of experience in creating responsive and user-friendly websites. I'm passionate about clean code, intuitive design, and staying up-to-date with the latest web technologies.</p>
+                    <p class="text-gray-700 dark:text-gray-300">When I'm not coding, you can find me hiking in the mountains or experimenting with new recipes in the kitchen.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 text-center">Skills</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 text-center hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
+                    <i class="fab fa-html5 text-5xl text-orange-500 mb-4"></i>
+                    <p class="font-semibold">HTML5</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 text-center hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
+                    <i class="fab fa-css3-alt text-5xl text-blue-500 mb-4"></i>
+                    <p class="font-semibold">CSS3</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 text-center hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
+                    <i class="fab fa-js text-5xl text-yellow-500 mb-4"></i>
+                    <p class="font-semibold">JavaScript</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 text-center hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
+                    <i class="fab fa-react text-5xl text-blue-400 mb-4"></i>
+                    <p class="font-semibold">React</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 text-center">Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                    <img src="https://via.placeholder.com/600x400" alt="Project 1" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">E-commerce Website</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4">A fully responsive e-commerce platform built with React and Node.js.</p>
+                        <a href="#" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-800 dark:hover:text-indigo-200">View Project</a>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                    <img src="https://via.placeholder.com/600x400" alt="Project 2" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Task Management App</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4">A productivity app developed using Vue.js and Firebase.</p>
+                        <a href="#" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-800 dark:hover:text-indigo-200">View Project</a>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                    <img src="https://via.placeholder.com/600x400" alt="Project 3" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Weather Dashboard</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4">A weather app that provides real-time forecasts using a third-party API.</p>
+                        <a href="#" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-800 dark:hover:text-indigo-200">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2 class="text-3xl font-bold mb-8 text-center">Get in Touch</h2>
+            <form class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 max-w-2xl mx-auto transition-colors duration-300">
+                <div class="mb-6">
+                    <label for="name" class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Name</label>
+                    <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                </div>
+                <div class="mb-6">
+                    <label for="email" class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Email</label>
+                    <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                </div>
+                <div class="mb-6">
+                    <label for="message" class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Message</label>
+                    <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required></textarea>
+                </div>
+                <button type="submit" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition duration-300 w-full">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 dark:bg-gray-900 text-white py-8 transition-colors duration-300">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="hover:text-indigo-400 transition duration-300"><i class="fab fa-github text-2xl"></i></a>
+                <a href="#" class="hover:text-indigo-400 transition duration-300"><i class="fab fa-linkedin text-2xl"></i></a>
+                <a href="#" class="hover:text-indigo-400 transition duration-300"><i class="fab fa-twitter text-2xl"></i></a>
+            </div>
+            <p>&copy; 2023 John Doe. All rights reserved.</p>
+        </div>
     </footer>
+
+    <script>
+        // Toggle mobile menu
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Add animation classes
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.animate-fade-in-up');
+            animatedElements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 200}ms`;
+            });
+        });
+    </script>
 </body>
 
 </html>
