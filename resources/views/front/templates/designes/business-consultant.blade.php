@@ -18,6 +18,14 @@
 </head>
 
 <body class="bg-gray-100 text-gray-800 min-h-screen">
+<div class="flex justify-between items-center p-4 bg-gray-200">
+    <div>
+        <h2 class="text-lg font-bold">Welcome, {{ auth()->user()->name }}!</h2>
+    </div>
+    <a href="/dashboard" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Go to Dashboard
+    </a>
+</div>
 <div class="max-w-md mx-auto bg-white shadow-lg">
     <!-- Header Image -->
     <div class="relative">

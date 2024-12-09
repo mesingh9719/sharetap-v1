@@ -14,12 +14,16 @@
                 </nav>
             </div>
             <div class="hidden md:flex md:items-center md:space-x-4">
-                <a href="{{ route('card.create') }}" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">
-                    Create New Card
-                </a>
-                <a href="{{ route('user.login') }}" class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">
-                    Sign in
-                </a>
+                @if (auth()->check())
+                    <a href="{{ route('card.create') }}" class="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out inline-block text-center">
+                        Create New Card
+                    </a>
+                    <a href="{{ route('dashboard') }}" class="text-gray-900 hover:bg-gray-50 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
+                    <a href="" class="text-gray-900 hover:bg-gray-50 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Logout</a>
+                @else
+                    <a href="{{ route('user.login') }}" class="text-gray-900 hover:bg-gray-50 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Sign in</a>
+                    <a href="{{ route('card.create') }}" class="text-gray-900 hover:bg-gray-50 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Sign up</a>
+                @endif
             </div>
             <div class="flex md:hidden">
                 <button type="button" class="text-gray-500 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">

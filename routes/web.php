@@ -24,7 +24,17 @@ Route::prefix('card')->group(function () {
     Route::post('/store', [CardController::class, 'store'])->name('card.store');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('front.dashboard');
+    })->name('dashboard');
+
+    Route::view('/templates', 'front.templates.index')->name('templates');
+});
+
+include 'admin.php';
 
 Route::get('/{unique_url}', [CardController::class, 'show'])->name('front.card.show');
 
-include 'admin.php';
+
+

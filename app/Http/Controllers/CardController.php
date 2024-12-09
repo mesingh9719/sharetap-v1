@@ -59,6 +59,8 @@ class CardController extends Controller
         $templateData['social_medias'] = json_encode($socialMedias);
         UserTemplate::create($templateData);
 
+        \Auth::login($user);
+
         return redirect()->route('front.card.show', $templateData['unique_url']);
     }
 
@@ -66,6 +68,7 @@ class CardController extends Controller
     {
         $userTemplate = UserTemplate::where('unique_url', $unique_url)->first();
         $template = Template::find($userTemplate->template_id);
-        return view('front.templates.index', compact('template','userTemplate'));
+        $view = $template->file_path.$template->file_name;
+        return view($view,compact('userTemplate'));
     }
 }

@@ -1,179 +1,191 @@
-<!DOCTYPE html>
-<html lang="en">
+<x-dashboard.layout.master-layout>
+    <div x-data="templateSelector()" class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-gray-800 mb-2">Choose Your Templates</h1>
+        <p class="text-xl text-gray-600 mb-8">Select one or more templates that suit your needs. Click on a card to select/deselect it.</p>
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>John Doe - Web Developer</title>
-    @vite('resources/css/app.css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-</head>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <template x-for="template in templates" :key="template.id">
+                <div
+                    class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 transform hover:scale-105 cursor-pointer border-2"
+                    :class="{'border-green-500': selectedTemplates.includes(template.id), 'border-transparent': !selectedTemplates.includes(template.id)}"
+                >
+                    <div class="relative">
+                        <img :src="template.image" :alt="template.name" class="w-full h-56 object-cover">
+                        <div
+                            class="absolute top-0 right-0 m-2 p-1 rounded-full"
+                            :class="{'bg-green-500': selectedTemplates.includes(template.id), 'bg-gray-200': !selectedTemplates.includes(template.id)}"
+                        >
+                            <svg
+                                class="w-6 h-6"
+                                :class="{'text-white': selectedTemplates.includes(template.id), 'text-gray-400': !selectedTemplates.includes(template.id)}"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 x-text="template.name" class="text-2xl font-semibold text-gray-800 mb-2"></h3>
+                        <p x-text="template.description" class="text-gray-600 mb-4"></p>
+                        <div class="flex justify-between items-center">
+                            <button
+                                @click.stop="toggleSelection(template.id)"
+                                class="px-4 py-2 rounded-lg font-semibold transition-colors duration-300"
+                                :class="{'bg-green-500 text-white': selectedTemplates.includes(template.id), 'bg-blue-500 text-white': !selectedTemplates.includes(template.id)}"
+                                x-text="selectedTemplates.includes(template.id) ? 'Selected' : 'Select'"
+                            ></button>
+                            <button
+                                @click.stop="openPreview(template)"
+                                class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition-colors duration-300"
+                            >
+                                Preview
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
 
-<body x-data="{ darkMode: false }" :class="{ 'dark': darkMode }" class="bg-gray-50 dark:bg-gray-900 font-sans text-gray-800 dark:text-gray-200 transition-colors duration-300">
-    <!-- Header -->
-    <header class="bg-white dark:bg-gray-800 shadow-md p-4 sticky top-0 z-10 transition-colors duration-300">
-        <nav class="container mx-auto flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">John Doe</a>
-            <ul class="hidden md:flex space-x-6">
-                <li><a href="#about" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300">About</a></li>
-                <li><a href="#skills" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300">Skills</a></li>
-                <li><a href="#projects" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300">Projects</a></li>
-                <li><a href="#contact" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300">Contact</a></li>
-            </ul>
-            <div class="flex items-center space-x-4">
-                <button @click="darkMode = !darkMode" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 transition duration-300">
-                    <i class="fas" :class="darkMode ? 'fa-sun' : 'fa-moon'"></i>
-                </button>
-                <button class="md:hidden" id="menu-toggle">
-                    <i class="fas fa-bars"></i>
-                </button>
+        <div class="mt-12">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-4">Selected Templates</h2>
+            <div x-show="selectedTemplates.length > 0" class="bg-white rounded-xl shadow-lg p-6">
+                <ul class="space-y-2">
+                    <template x-for="id in selectedTemplates" :key="id">
+                        <li class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span x-text="templates.find(t => t.id === id).name" class="text-lg text-gray-700"></span>
+                        </li>
+                    </template>
+                </ul>
             </div>
-        </nav>
-    </header>
+            <p x-show="selectedTemplates.length === 0" class="text-xl text-gray-600">No templates selected yet. Click on the cards above to select templates.</p>
+        </div>
 
-    <!-- Mobile Menu -->
-    <div class="md:hidden bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 hidden transition-colors duration-300" id="mobile-menu">
-        <ul class="space-y-2">
-            <li><a href="#about" class="block hover:text-indigo-600 dark:hover:text-indigo-400">About</a></li>
-            <li><a href="#skills" class="block hover:text-indigo-600 dark:hover:text-indigo-400">Skills</a></li>
-            <li><a href="#projects" class="block hover:text-indigo-600 dark:hover:text-indigo-400">Projects</a></li>
-            <li><a href="#contact" class="block hover:text-indigo-600 dark:hover:text-indigo-400">Contact</a></li>
-        </ul>
+        <div class="mt-12">
+            <button
+                @click="saveSelection"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-300 text-lg"
+                x-bind:disabled="selectedTemplates.length === 0"
+                x-bind:class="{'opacity-50 cursor-not-allowed': selectedTemplates.length === 0}"
+            >
+                Save Selection
+            </button>
+        </div>
+
+        <!-- Preview Modal -->
+        <div x-show="previewOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" @click.self="previewOpen = false">
+            <div class="bg-white rounded-xl shadow-2xl max-w-3xl w-full mx-4 overflow-hidden" @click.outside="previewOpen = false">
+                <div class="relative">
+                    <img :src="previewTemplate.image" :alt="previewTemplate.name" class="w-full h-64 object-cover">
+                    <button @click="previewOpen = false" class="absolute top-2 right-2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition-colors duration-300">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <h3 x-text="previewTemplate.name" class="text-3xl font-bold text-gray-800 mb-2"></h3>
+                    <p x-text="previewTemplate.description" class="text-xl text-gray-600 mb-4"></p>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-700">Key Features:</h4>
+                            <ul class="list-disc list-inside text-gray-600 ml-4">
+                                <template x-for="feature in previewTemplate.features" :key="feature">
+                                    <li x-text="feature"></li>
+                                </template>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold text-gray-700">Best For:</h4>
+                            <p x-text="previewTemplate.bestFor" class="text-gray-600"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-20 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" class="h-full w-full">
-                <g fill-rule="evenodd"><circle cx="25" cy="25" r="25"/><circle cx="75" cy="75" r="25"/></g>
-            </svg>
-        </div>
-        <div class="container mx-auto px-4 text-center relative z-10">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fade-in-up">Welcome to My Portfolio</h1>
-            <p class="text-xl mb-8 animate-fade-in-up animation-delay-200">I'm a passionate web developer creating amazing digital experiences</p>
-            <a href="#contact" class="bg-white text-indigo-600 font-bold py-3 px-6 rounded-full hover:bg-indigo-100 transition duration-300 animate-fade-in-up animation-delay-400">Get in Touch</a>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-12">
-        <!-- About Section -->
-        <section id="about" class="mb-20">
-            <h2 class="text-3xl font-bold mb-8 text-center">About Me</h2>
-            <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 flex flex-col md:flex-row items-center transition-colors duration-300">
-                <img src="https://via.placeholder.com/300" alt="John Doe" class="w-48 h-48 rounded-full mb-6 md:mb-0 md:mr-8">
-                <div>
-                    <p class="text-gray-700 dark:text-gray-300 mb-4">Hi, I'm John Doe, a web developer with 5 years of experience in creating responsive and user-friendly websites. I'm passionate about clean code, intuitive design, and staying up-to-date with the latest web technologies.</p>
-                    <p class="text-gray-700 dark:text-gray-300">When I'm not coding, you can find me hiking in the mountains or experimenting with new recipes in the kitchen.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="mb-20">
-            <h2 class="text-3xl font-bold mb-8 text-center">Skills</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 text-center hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
-                    <i class="fab fa-html5 text-5xl text-orange-500 mb-4"></i>
-                    <p class="font-semibold">HTML5</p>
-                </div>
-                <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 text-center hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
-                    <i class="fab fa-css3-alt text-5xl text-blue-500 mb-4"></i>
-                    <p class="font-semibold">CSS3</p>
-                </div>
-                <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 text-center hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
-                    <i class="fab fa-js text-5xl text-yellow-500 mb-4"></i>
-                    <p class="font-semibold">JavaScript</p>
-                </div>
-                <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 text-center hover:shadow-lg transition duration-300 transform hover:-translate-y-1">
-                    <i class="fab fa-react text-5xl text-blue-400 mb-4"></i>
-                    <p class="font-semibold">React</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="mb-20">
-            <h2 class="text-3xl font-bold mb-8 text-center">Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-                    <img src="https://via.placeholder.com/600x400" alt="Project 1" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">E-commerce Website</h3>
-                        <p class="text-gray-700 dark:text-gray-300 mb-4">A fully responsive e-commerce platform built with React and Node.js.</p>
-                        <a href="#" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-800 dark:hover:text-indigo-200">View Project</a>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-                    <img src="https://via.placeholder.com/600x400" alt="Project 2" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">Task Management App</h3>
-                        <p class="text-gray-700 dark:text-gray-300 mb-4">A productivity app developed using Vue.js and Firebase.</p>
-                        <a href="#" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-800 dark:hover:text-indigo-200">View Project</a>
-                    </div>
-                </div>
-                <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
-                    <img src="https://via.placeholder.com/600x400" alt="Project 3" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">Weather Dashboard</h3>
-                        <p class="text-gray-700 dark:text-gray-300 mb-4">A weather app that provides real-time forecasts using a third-party API.</p>
-                        <a href="#" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:text-indigo-800 dark:hover:text-indigo-200">View Project</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact">
-            <h2 class="text-3xl font-bold mb-8 text-center">Get in Touch</h2>
-            <form class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8 max-w-2xl mx-auto transition-colors duration-300">
-                <div class="mb-6">
-                    <label for="name" class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Name</label>
-                    <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
-                </div>
-                <div class="mb-6">
-                    <label for="email" class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Email</label>
-                    <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
-                </div>
-                <div class="mb-6">
-                    <label for="message" class="block text-gray-700 dark:text-gray-300 font-semibold mb-2">Message</label>
-                    <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required></textarea>
-                </div>
-                <button type="submit" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition duration-300 w-full">Send Message</button>
-            </form>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 dark:bg-gray-900 text-white py-8 transition-colors duration-300">
-        <div class="container mx-auto px-4 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-                <a href="#" class="hover:text-indigo-400 transition duration-300"><i class="fab fa-github text-2xl"></i></a>
-                <a href="#" class="hover:text-indigo-400 transition duration-300"><i class="fab fa-linkedin text-2xl"></i></a>
-                <a href="#" class="hover:text-indigo-400 transition duration-300"><i class="fab fa-twitter text-2xl"></i></a>
-            </div>
-            <p>&copy; 2023 John Doe. All rights reserved.</p>
-        </div>
-    </footer>
-
     <script>
-        // Toggle mobile menu
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
+        function templateSelector() {
+            return {
+                templates: [
+                    {
+                        id: 1,
+                        name: 'Modern Blog Template',
+                        description: 'Clean and minimalist design for personal or corporate blogs',
+                        image: 'https://via.placeholder.com/800x600.png?text=Modern+Blog+Template',
+                        features: ['Responsive design', 'SEO optimized', 'Social media integration', 'Comment system'],
+                        bestFor: 'Bloggers, writers, and content creators looking for a sleek and professional platform.'
+                    },
+                    {
+                        id: 2,
+                        name: 'E-commerce Powerhouse',
+                        description: 'Feature-rich template for online stores and marketplaces',
+                        image: 'https://via.placeholder.com/800x600.png?text=E-commerce+Powerhouse',
+                        features: ['Product catalog', 'Shopping cart', 'Secure checkout', 'Customer reviews'],
+                        bestFor: 'Small to medium-sized businesses looking to establish or expand their online presence.'
+                    },
+                    {
+                        id: 3,
+                        name: 'Creative Portfolio Showcase',
+                        description: 'Visually stunning template to highlight your best work',
+                        image: 'https://via.placeholder.com/800x600.png?text=Creative+Portfolio+Showcase',
+                        features: ['Gallery layouts', 'Project details pages', 'Customizable color schemes', 'Contact form'],
+                        bestFor: 'Artists, designers, photographers, and other creatives who want to showcase their work professionally.'
+                    },
+                    {
+                        id: 4,
+                        name: 'High-Converting Landing Page',
+                        description: 'Optimized template to drive conversions and engage visitors',
+                        image: 'https://via.placeholder.com/800x600.png?text=High-Converting+Landing+Page',
+                        features: ['A/B testing ready', 'Call-to-action optimization', 'Lead capture forms', 'Testimonial sections'],
+                        bestFor: 'Marketers and businesses looking to promote a specific product, service, or campaign effectively.'
+                    },
+                    {
+                        id: 5,
+                        name: 'Intuitive Admin Dashboard',
+                        description: 'Comprehensive template for data visualization and management',
+                        image: 'https://via.placeholder.com/800x600.png?text=Intuitive+Admin+Dashboard',
+                        features: ['Interactive charts and graphs', 'User management', 'Real-time data updates', 'Customizable widgets'],
+                        bestFor: 'Businesses and organizations that need to monitor and analyze data, manage users, or oversee operations.'
+                    },
+                    {
+                        id: 6,
+                        name: 'Knowledge Base & Documentation',
+                        description: 'Well-structured template for organizing and presenting information',
+                        image: 'https://via.placeholder.com/800x600.png?text=Knowledge+Base+%26+Documentation',
+                        features: ['Searchable content', 'Categorized articles', 'Version control', 'User feedback system'],
+                        bestFor: 'Software companies, educational institutions, or any organization needing to provide comprehensive, organized information to users.'
+                    }
+                ],
+                selectedTemplates: [],
+                previewOpen: false,
+                previewTemplate: {},
 
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+                toggleSelection(id) {
+                    if (this.selectedTemplates.includes(id)) {
+                        this.selectedTemplates = this.selectedTemplates.filter(templateId => templateId !== id);
+                    } else {
+                        this.selectedTemplates.push(id);
+                    }
+                },
 
-        // Add animation classes
-        document.addEventListener('DOMContentLoaded', () => {
-            const animatedElements = document.querySelectorAll('.animate-fade-in-up');
-            animatedElements.forEach((el, index) => {
-                el.style.animationDelay = `${index * 200}ms`;
-            });
-        });
+                openPreview(template) {
+                    this.previewTemplate = template;
+                    this.previewOpen = true;
+                },
+
+                saveSelection() {
+                    const selectedTemplateNames = this.selectedTemplates.map(id => this.templates.find(t => t.id === id).name);
+                    alert('Templates saved: ' + selectedTemplateNames.join(', '));
+                    // Here you would typically send the selection to the server
+                }
+            }
+        }
     </script>
-</body>
-
-</html>
+</x-dashboard.layout.master-layout>
