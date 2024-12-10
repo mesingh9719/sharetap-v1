@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\Front\TemplatesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,7 +30,7 @@ Route::middleware(['auth'])->group(function () {
         return view('front.dashboard');
     })->name('dashboard');
 
-    Route::view('/templates', 'front.templates.index')->name('templates');
+    Route::resource('/templates', TemplatesController::class);
 });
 
 include 'admin.php';

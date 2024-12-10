@@ -10,6 +10,15 @@
         </div>
 
         <div class="flex items-center space-x-6">
+            {{-- prew website button --}}
+            @php
+                $userTemplate = auth()->user()->userTemplate()->first(['unique_url']);
+                $url = $userTemplate->unique_url;
+            @endphp
+            <a href="{{ url('/' . $url) }}" target="_blank" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors duration-300">
+                Preview Website
+            </a>
+
             <!-- User Profile Dropdown -->
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open" class="flex items-center space-x-2 focus:outline-none">

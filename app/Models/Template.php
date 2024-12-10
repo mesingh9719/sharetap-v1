@@ -9,4 +9,6 @@ class Template extends Model
 {
     /** @use HasFactory<\Database\Factories\TemplateFactory> */
     use HasFactory;
+
+
 }

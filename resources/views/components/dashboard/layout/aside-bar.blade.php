@@ -19,7 +19,7 @@
             </li>
             <!-- Users Link -->
             <li>
-                <a href="{{ route('templates') }}" class="flex items-center p-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200">
+                <a href="{{ route('templates.index') }}" class="flex items-center p-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200">
                     <i class="fas fa-users mr-4 text-lg"></i>
                     <span class="text-sm">Templates</span>
                 </a>
