@@ -1,5 +1,5 @@
 <header class="bg-white dark:bg-gray-900 shadow-md sticky top-0 z-50">
-    <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+    <div class=" mx-auto px-6 py-4 flex items-center justify-between">
         <div class="flex items-center space-x-4">
             <button @click="sidebarOpen = !sidebarOpen" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white focus:outline-none">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

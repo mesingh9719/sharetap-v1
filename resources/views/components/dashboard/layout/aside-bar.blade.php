@@ -1,5 +1,5 @@
 <aside class="bg-white dark:bg-gray-900 w-64 min-h-screen flex flex-col transition-all duration-300 ease-in-out fixed lg:relative lg:translate-x-0" :class="{ '-translate-x-full': !sidebarOpen }">
-    <div class="flex items-center justify-between p-4 border-b dark:border-gray-700">
+    <div class="flex items-center justify-between p-5 border-b dark:border-gray-700">
         <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">Admin Panel</h2>
         <button @click="sidebarOpen = false" class="text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white lg:hidden">
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
