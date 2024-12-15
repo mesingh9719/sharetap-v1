@@ -39,4 +39,10 @@ class TemplatesController extends Controller
         return redirect()->back()->with('success','Template updated successfully');
 
     }
+
+    public function recommendedTemplates()
+    {
+        $templates = Template::where('is_recommended',1)->get();
+        return response()->json($templates);
+    }
 }
