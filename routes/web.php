@@ -5,6 +5,7 @@ use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\Front\TemplatesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\RegisterController;
+use App\Http\Controllers\Front\OnboardingController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -67,6 +68,7 @@ Route::middleware(['auth'])->group(function () {
     // apis
 
     Route::get('/api/recommended-templates', [TemplatesController::class, 'recommendedTemplates'])->name('recommended-templates');
+    Route::get('/api/active-templates', [TemplatesController::class, 'activeTemplates'])->name('active-templates');
 });
 
 include 'admin.php';

@@ -14,6 +14,17 @@
             background-color: rgb(243, 244, 246);
             color: rgb(107, 114, 128);
         }
+
+        #templates-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem 0;
+        }
+
+        .template-option {
+            min-height: 300px;
+        }
     </style>
     <div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto bg-white shadow-xl rounded-xl overflow-hidden">
@@ -245,18 +256,88 @@
                             class="px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition">
                             Continue
                         </button>
-                        <a href="{{ url('website.builder') }}" id="submit-btn"
-                            class="hidden px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 transition">
-                            Start Building e
-                        </a>
+                        <button type="submit" id="submit-btn"
+                            class="hidden px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition">
+                            Finish
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
+    <!-- Templates Browse Modal -->
+    <div id="templates-modal"
+        class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden overflow-y-auto h-full w-full z-50">
+        <div class="relative top-5 mx-auto p-5 border w-11/12 max-w-4xl shadow-lg rounded-md bg-white">
+            <div class="flex flex-col max-h-[80vh]">
+                <!-- Header -->
+                <div class="flex justify-between items-center border-b pb-4">
+                    <h3 class="text-xl font-semibold text-gray-900">Browse All Templates</h3>
+                    <button type="button" onclick="closeTemplatesModal()" class="text-gray-400 hover:text-gray-500">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Search and Filter -->
+                <div class="py-4 border-b">
+                    <div class="flex gap-4">
+                        <div class="flex-1">
+                            <input type="text" id="template-search"
+                                class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                placeholder="Search templates...">
+                        </div>
+                        <select id="template-filter"
+                            class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <option value="">All Categories</option>
+                            <option value="business">Business</option>
+                            <option value="portfolio">Portfolio</option>
+                            <option value="ecommerce">E-commerce</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Templates Grid -->
+                <div class="overflow-y-auto py-4" style="max-height: calc(80vh - 180px);">
+                    <div id="modal-templates-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <!-- Templates will be loaded here -->
+                        <div class="col-span-full text-center py-8">
+                            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <x-slot:js>
         <script>
+            // Define saveFormData as a global function
+            function saveFormData() {
+                const form = document.getElementById('onboarding-form');
+                const formData = {};
+
+                // Collect all form inputs
+                const inputs = form.querySelectorAll('input, select, textarea');
+                inputs.forEach(input => {
+                    if (input.type === 'radio') {
+                        if (input.checked) {
+                            formData[input.name] = input.value;
+                        }
+                    } else {
+                        formData[input.name] = input.value;
+                    }
+                });
+
+                localStorage.setItem('onboardingData', JSON.stringify(formData));
+                localStorage.setItem('currentStep', currentStep.toString());
+            }
+            let currentStep = 0;
+
             document.addEventListener('DOMContentLoaded', function() {
                 const steps = document.querySelectorAll('.onboarding-step');
                 const prevBtn = document.getElementById('prev-step');
@@ -264,7 +345,7 @@
                 const submitBtn = document.getElementById('submit-btn');
                 const progressBar = document.getElementById('progress-bar');
                 const progressText = document.getElementById('progress-text');
-                let currentStep = 0;
+
 
                 // Initialize form data from localStorage
                 function initializeFormData() {
@@ -512,56 +593,106 @@
         </script>
 
         <script>
+            // Define setupTemplateSelection function
+            function setupTemplateSelection() {
+                const templateOptions = document.querySelectorAll('.template-option');
+                templateOptions.forEach(option => {
+                    const input = option.querySelector('input[type="radio"]');
+                    if (!input) return; // Skip for "Browse All" button
+
+                    const label = option.querySelector('label');
+
+                    label.addEventListener('click', function() {
+                        // Uncheck all other radio inputs
+                        document.querySelectorAll('input[name="website_template"]').forEach(radio => {
+                            radio.checked = false;
+                        });
+
+                        // Select only this radio input
+                        input.checked = true;
+
+                        // Remove active class from all labels
+                        templateOptions.forEach(opt => {
+                            const optLabel = opt.querySelector('label');
+                            if (optLabel) {
+                                optLabel.classList.remove('border-purple-500', 'bg-purple-50');
+                                optLabel.classList.add('border-gray-200');
+                            }
+                            // Reset "Select/Selected" text
+                            const selectSpan = opt.querySelector('.px-3.py-1.bg-purple-600');
+                            if (selectSpan) {
+                                selectSpan.textContent = 'Select';
+                            }
+                            // Remove "Selected" badge
+                            const badge = opt.querySelector('.bg-purple-100.text-purple-800');
+                            if (badge) {
+                                badge.textContent = 'Recommended';
+                                badge.classList.remove('bg-purple-100', 'text-purple-800');
+                                badge.classList.add('bg-green-100', 'text-green-800');
+                            }
+                        });
+
+                        // Update this template's UI
+                        label.classList.remove('border-gray-200');
+                        label.classList.add('border-purple-500', 'bg-purple-50');
+
+                        // Update "Select" to "Selected" text
+                        const selectSpan = label.querySelector('.px-3.py-1.bg-purple-600');
+                        if (selectSpan) {
+                            selectSpan.textContent = 'Selected';
+                        }
+
+                        // Update badge to "Selected"
+                        const badge = label.querySelector('.bg-green-100.text-green-800');
+                        if (badge) {
+                            badge.textContent = 'Selected';
+                            badge.classList.remove('bg-green-100', 'text-green-800');
+                            badge.classList.add('bg-purple-100', 'text-purple-800');
+                        }
+
+                        // Save selection to form data
+                        saveFormData();
+                    });
+                });
+            }
+
+
             function loadRecommendedTemplates() {
                 const templatesContainer = document.getElementById('templates-container');
+                const selectedTemplateId = document.querySelector('input[name="website_template"]:checked')?.value;
 
                 fetch('{{ route('recommended-templates') }}')
                     .then(response => response.json())
                     .then(templates => {
-                        templatesContainer.innerHTML = '';
-                        console.log(templates);
+                        // Store in allTemplates if empty
+                        if (allTemplates.length === 0) {
+                            allTemplates = [...templates];
+                        }
 
+                        let templateHtml = '';
+
+                        // First, add selected template if it exists and isn't in recommended templates
+                        if (selectedTemplateId) {
+                            const selectedTemplate = allTemplates.find(t => t.id.toString() === selectedTemplateId);
+                            if (selectedTemplate && !templates.find(t => t.id.toString() === selectedTemplateId)) {
+                                templateHtml += generateTemplateCard(selectedTemplate, true);
+                            }
+                        }
+
+                        // Add recommended templates
                         templates.forEach(template => {
-                            // Clean up template name (remove extra newlines)
-                            const cleanName = template.name.trim();
-
-                            const templateHtml = `
-                    <div class="template-option relative">
-                        <input type="radio"
-                            id="template-${template.id}"
-                            name="website_template"
-                            value="${template.id}"
-                            class="peer hidden">
-                        <label for="template-${template.id}"
-                            class="block border-2 border-gray-200 rounded-lg overflow-hidden cursor-pointer hover:border-purple-500 transition-all duration-200 peer-checked:border-purple-500 peer-checked:bg-purple-50">
-                            <img src="{{ asset('${template.path}') }}"
-                                alt="${cleanName}"
-                                class="w-full h-48 object-cover">
-                            <div class="p-4">
-                                <div class="flex items-center justify-between mb-2">
-                                    <h4 class="text-lg font-semibold">${cleanName}</h4>
-                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Recommended</span>
-                                </div>
-                                <div class="mt-4 flex justify-between items-center">
-                                    <button type="button"
-                                        onclick="previewTemplate('${template.file_name}')"
-                                        class="text-purple-600 font-medium hover:text-purple-700">
-                                        Preview
-                                    </button>
-                                    <span class="px-3 py-1 bg-purple-600 text-white text-sm rounded">Select</span>
-                                </div>
-                            </div>
-                        </label>
-                    </div>
-                `;
-                            templatesContainer.insertAdjacentHTML('beforeend', templateHtml);
+                            const isSelected = selectedTemplateId === template.id.toString();
+                            if (!isSelected || template.id.toString() !== selectedTemplateId) {
+                                templateHtml += generateTemplateCard(template, isSelected);
+                            }
                         });
 
-                        // Add "Browse All Templates" option
-                        const browseAllHtml = `
+                        // Add Browse All button
+                        templateHtml += `
                 <div class="template-option">
-                    <a href="{{ route('user.choose-template') }}"
-                        class="block h-full border-2 border-gray-200 rounded-lg hover:border-purple-500 transition-all duration-200">
+                    <button type="button"
+                        onclick="openTemplatesModal()"
+                        class="block h-full w-full border-2 border-gray-200 rounded-lg hover:border-purple-500 transition-all duration-200">
                         <div class="flex flex-col items-center justify-center h-full p-6 text-center">
                             <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                                 <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -572,35 +703,12 @@
                             <h4 class="text-lg font-semibold text-purple-600">Browse All Templates</h4>
                             <p class="text-sm text-gray-500 mt-2">Explore our full collection</p>
                         </div>
-                    </a>
+                    </button>
                 </div>
             `;
-                        templatesContainer.insertAdjacentHTML('beforeend', browseAllHtml);
 
-                        // Add template selection handling
-                        const templateOptions = document.querySelectorAll('.template-option');
-                        templateOptions.forEach(option => {
-                            const input = option.querySelector('input[type="radio"]');
-                            if (!input) return;
-
-                            const label = option.querySelector('label');
-
-                            label.addEventListener('click', function() {
-                                input.checked = true;
-
-                                templateOptions.forEach(opt => {
-                                    const optLabel = opt.querySelector('label');
-                                    if (optLabel) {
-                                        optLabel.classList.remove('border-purple-500',
-                                            'bg-purple-50');
-                                        optLabel.classList.add('border-gray-200');
-                                    }
-                                });
-
-                                label.classList.remove('border-gray-200');
-                                label.classList.add('border-purple-500', 'bg-purple-50');
-                            });
-                        });
+                        templatesContainer.innerHTML = templateHtml;
+                        setupTemplateSelection();
                     })
                     .catch(error => {
                         console.error('Error loading templates:', error);
@@ -612,9 +720,8 @@
                     });
             }
 
-            // Template preview function
+            // Preview template function (if not already defined)
             function previewTemplate(fileName) {
-                // Open preview in a new tab
                 window.open(`{{ url('front/templates/designes/') }}/${fileName}`, '_blank');
             }
 
@@ -685,6 +792,216 @@
             });
         </script>
 
+        <script>
+            // Add these functions to your script
+            let allTemplates = [];
+            let filteredTemplates = [];
+
+            function openTemplatesModal() {
+                document.getElementById('templates-modal').classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                loadAllTemplates();
+            }
+
+            function closeTemplatesModal() {
+                document.getElementById('templates-modal').classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+
+            async function loadAllTemplates() {
+                const gridContainer = document.getElementById('modal-templates-grid');
+
+                try {
+                    const response = await fetch('{{ route('active-templates') }}');
+                    allTemplates = await response.json();
+                    filteredTemplates = [...allTemplates];
+                    renderTemplates(filteredTemplates);
+                } catch (error) {
+                    console.error('Error loading templates:', error);
+                    gridContainer.innerHTML = `
+            <div class="col-span-full text-center text-red-600">
+                <p>Error loading templates. Please try again later.</p>
+            </div>
+        `;
+                }
+            }
+
+            function renderTemplates(templates) {
+                const gridContainer = document.getElementById('modal-templates-grid');
+                const selectedTemplateId = document.querySelector('input[name="website_template"]:checked')?.value;
+
+                // Show all templates in modal (removed the filter)
+                gridContainer.innerHTML = templates.map(template => {
+                    const isSelected = selectedTemplateId === template.id.toString();
+                    return `
+            <div class="template-card border ${isSelected ? 'border-purple-500 bg-purple-50' : 'border-gray-300'} rounded-lg overflow-hidden transition-all duration-200">
+                <img src="{{ asset('${template.path}') }}"
+                    alt="${template.name.trim()}"
+                    class="w-full h-32 object-cover">
+                <div class="p-3">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-semibold text-sm">${template.name.trim()}</h4>
+                        ${isSelected ? '<span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Selected</span>' : ''}
+                    </div>
+                    <div class="flex justify-between items-center mt-2">
+                        <button type="button"
+                            onclick="previewTemplate('${template.file_name}')"
+                            class="text-sm text-purple-600 hover:text-purple-700">
+                            Preview
+                        </button>
+                        <button type="button"
+                            onclick="selectTemplate(${template.id})"
+                            class="px-3 py-1 text-sm ${isSelected ? 'bg-purple-200 hover:bg-purple-300' : 'bg-purple-600 hover:bg-purple-700'} text-white rounded transition-colors">
+                            ${isSelected ? 'Selected' : 'Select'}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+                }).join('');
+            }
+
+
+            async function selectTemplate(templateId) {
+                // Find the template
+                const selectedTemplate = allTemplates.find(t => t.id === templateId);
+                if (!selectedTemplate) return;
+
+                // Unselect all templates
+                document.querySelectorAll('input[name="website_template"]').forEach(radio => {
+                    radio.checked = false;
+                });
+
+                // Save template selection
+                const templatesContainer = document.getElementById('templates-container');
+
+                // Rebuild recommended templates section with new selection
+                fetch('{{ route('recommended-templates') }}')
+                    .then(response => response.json())
+                    .then(recommendedTemplates => {
+                        let templateHtml = '';
+
+                        // Add selected template first if it's not in recommended templates
+                        if (!recommendedTemplates.find(t => t.id === selectedTemplate.id)) {
+                            templateHtml += generateTemplateCard(selectedTemplate, true, false);
+                        }
+
+                        // Add recommended templates
+                        recommendedTemplates.forEach(template => {
+                            const isThisSelected = template.id === selectedTemplate.id;
+                            templateHtml += generateTemplateCard(template, isThisSelected, true);
+                        });
+
+                        // Add Browse All button
+                        templateHtml += `
+                <div class="template-option">
+                    <button type="button"
+                        onclick="openTemplatesModal()"
+                        class="block h-full w-full border-2 border-gray-200 rounded-lg hover:border-purple-500 transition-all duration-200">
+                        <div class="flex flex-col items-center justify-center h-full p-6 text-center">
+                            <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
+                            </div>
+                            <h4 class="text-lg font-semibold text-purple-600">Browse All Templates</h4>
+                            <p class="text-sm text-gray-500 mt-2">Explore our full collection</p>
+                        </div>
+                    </button>
+                </div>
+            `;
+
+                        templatesContainer.innerHTML = templateHtml;
+
+                        // Setup template selection handlers
+                        setupTemplateSelection();
+
+                        try {
+                            // Try to save form data
+                            saveFormData();
+                        } catch (error) {
+                            console.error('Error saving form data:', error);
+                        }
+
+                        // Close modal
+                        closeTemplatesModal();
+                    })
+                    .catch(error => {
+                        console.error('Error updating templates:', error);
+                    });
+            }
+
+
+            function generateTemplateCard(template, isSelected = false, isRecommended = template.is_recommended) {
+                return `
+        <div class="template-option relative group">
+            <input type="radio"
+                id="template-${template.id}"
+                name="website_template"
+                value="${template.id}"
+                class="peer hidden"
+                ${isSelected ? 'checked' : ''}>
+            <label for="template-${template.id}"
+                class="block border-2 ${isSelected ? 'border-purple-500 bg-purple-50' : 'border-gray-200'}
+                rounded-lg overflow-hidden cursor-pointer hover:border-purple-500 transition-all duration-200
+                peer-checked:border-purple-500 peer-checked:bg-purple-50">
+                <img src="{{ asset('${template.path}') }}"
+                    alt="${template.name.trim()}"
+                    class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <h4 class="text-lg font-semibold">${template.name.trim()}</h4>
+                        ${isSelected ?
+                            '<span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">Selected</span>' :
+                            (isRecommended ?
+                                '<span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Recommended</span>' :
+                                '')}
+                    </div>
+                    <div class="mt-4 flex justify-between items-center">
+                        <button type="button"
+                            onclick="event.preventDefault(); previewTemplate('${template.file_name}')"
+                            class="text-purple-600 font-medium hover:text-purple-700">
+                            Preview
+                        </button>
+                        <span class="px-3 py-1 bg-purple-600 text-white text-sm rounded">
+                            ${isSelected ? 'Selected' : 'Select'}
+                        </span>
+                    </div>
+                </div>
+            </label>
+        </div>
+    `;
+            }
+
+
+            // Add search and filter functionality
+            document.getElementById('template-search')?.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                const filterValue = document.getElementById('template-filter').value;
+
+                filteredTemplates = allTemplates.filter(template => {
+                    const matchesSearch = template.name.toLowerCase().includes(searchTerm);
+                    const matchesFilter = !filterValue || template.category === filterValue;
+                    return matchesSearch && matchesFilter;
+                });
+
+                renderTemplates(filteredTemplates);
+            });
+
+            document.getElementById('template-filter')?.addEventListener('change', function(e) {
+                const filterValue = e.target.value;
+                const searchTerm = document.getElementById('template-search').value.toLowerCase();
+
+                filteredTemplates = allTemplates.filter(template => {
+                    const matchesSearch = template.name.toLowerCase().includes(searchTerm);
+                    const matchesFilter = !filterValue || template.category === filterValue;
+                    return matchesSearch && matchesFilter;
+                });
+
+                renderTemplates(filteredTemplates);
+            });
+        </script>
         <!-- Add this JavaScript to your script section -->
         <script>
             function toggleAccountType(type) {

@@ -42,7 +42,13 @@ class TemplatesController extends Controller
 
     public function recommendedTemplates()
     {
-        $templates = Template::where('is_recommended',1)->get();
+        $templates = Template::where('is_active',1)->where('is_recommended',1)->get();
+        return response()->json($templates);
+    }
+
+    public function activeTemplates()
+    {
+        $templates = Template::where('is_active',1)->get();
         return response()->json($templates);
     }
 }
