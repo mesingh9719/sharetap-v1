@@ -18,6 +18,8 @@ return new class extends Migration
             // Add new columns
             $table->string('file_name')->nullable();
             $table->string('file_path')->nullable();
+            $table->boolean('is_recommended')->default(0);
+            $table->boolean('is_active')->default(0);
         });
     }
 
@@ -34,6 +36,7 @@ return new class extends Migration
 
             // Drop the newly added columns
             $table->dropColumn(['file_name', 'file_path']);
+            $table->dropColumn(['is_recommended', 'is_active']);
         });
     }
 };

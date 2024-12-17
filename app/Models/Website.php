@@ -17,18 +17,13 @@ class Website extends Model
         'status'
     ];
 
+    public function basicInfo()
+    {
+        return $this->hasOne(WebsiteBasicInfo::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function businessProfile()
-    {
-        return $this->hasOne(BusinessProfile::class);
-    }
-
-    public function individualProfile()
-    {
-        return $this->hasOne(IndividualProfile::class);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Front\TemplatesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\RegisterController;
 use App\Http\Controllers\Front\OnboardingController;
+use App\Http\Controllers\Front\Authenticated\WebsiteBasicInfoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,12 +35,6 @@ Route::get('/faqs', function () {
 })->name('faqs');
 
 
-
-// Website Builder
-Route::get('/website-builder', function () {
-    return view('front.website-builder');
-})->name('website.builder');
-
 Route::get('/login', function () {
     return view('front.login');
 })->name('user.login');
@@ -64,6 +59,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/onboarding', [OnboardingController::class, 'store'])->name('onboarding.store');
 
     Route::resource('/templates', TemplatesController::class);
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/website/basic-info', [WebsiteBasicInfoController::class, 'index'])
+             ->name('website.basic-info.index');
+        Route::get('/website/basic-info/edit', [WebsiteBasicInfoController::class, 'edit'])
+             ->name('website.basic-info.edit');
+        Route::put('/website/basic-info', [WebsiteBasicInfoController::class, 'update'])
+             ->name('website.basic-info.update');
+    });
 
     // apis
 

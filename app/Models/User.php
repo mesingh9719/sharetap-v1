@@ -52,8 +52,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function userTemplate()
+    public function website()
     {
-        return $this->hasOne(UserTemplate::class);
+        return $this->hasOne(Website::class);
     }
 }

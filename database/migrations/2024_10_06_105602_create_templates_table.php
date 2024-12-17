@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('path',255);
+            $table->string('file_name',255);
+            $table->string('file_path');
+            $table->boolean('is_recommended')->default(false);
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }
