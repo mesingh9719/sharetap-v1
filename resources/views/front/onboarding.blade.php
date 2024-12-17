@@ -244,6 +244,27 @@
                                 <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
                             </div>
                         </div>
+                        <div class="mt-8 pt-8 border-t border-gray-200">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">Choose Your Website Address</h3>
+
+                            <div class="max-w-2xl">
+                                <!-- Include your subdomain checker component -->
+                                <x-subdomain-checker />
+
+                                <!-- Subdomain Guidelines -->
+                                <div class="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                                    <h4 class="font-medium text-gray-700 mb-2">Guidelines for your website address:
+                                    </h4>
+                                    <ul class="list-disc pl-5 space-y-1 text-sm text-gray-600">
+                                        <li>Use only lowercase letters, numbers, and hyphens</li>
+                                        <li>Must start and end with a letter or number</li>
+                                        <li>Minimum 3 characters required</li>
+                                        <li>Maximum 63 characters allowed</li>
+                                        <li>Cannot use reserved words (e.g., www, admin, api)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Navigation Buttons -->
@@ -450,7 +471,17 @@
 
                         case 2: // Template Selection
                             const selectedTemplate = form.querySelector('input[name="website_template"]:checked');
-                            if (!selectedTemplate) errors.push('Please select a template');
+                            const subdomain = form.querySelector('input[name="subdomain"]').value;
+
+                            if (!selectedTemplate) {
+                                errors.push('Please select a template');
+                            }
+
+                            if (!subdomain) {
+                                errors.push('Please choose a website address');
+                            } else if (document.querySelector('[x-data]').__x.$data.messageType === 'error') {
+                                errors.push('Please choose an available website address');
+                            }
                             break;
                     }
 
@@ -538,6 +569,14 @@
                         showErrors(errors);
                         return;
                     }
+
+                    const formData = new FormData(form);
+                    const subdomainData = document.querySelector('[x-data]').__x.$data;
+                    if (subdomainData.messageType !== 'success') {
+                        showErrors(['Please choose an available website address']);
+                        return;
+                    }
+                    formData.append('subdomain', subdomainData.subdomain);
 
                     try {
                         const formData = new FormData(form);

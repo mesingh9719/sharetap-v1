@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\RegisterController;
 use App\Http\Controllers\Front\OnboardingController;
 use App\Http\Controllers\Front\Authenticated\WebsiteBasicInfoController;
+use App\Http\Controllers\Front\SubdomainController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -73,6 +74,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/api/recommended-templates', [TemplatesController::class, 'recommendedTemplates'])->name('recommended-templates');
     Route::get('/api/active-templates', [TemplatesController::class, 'activeTemplates'])->name('active-templates');
+    // routes/api.php
+Route::get('/api/subdomain/check', [SubdomainController::class, 'check'])->name('subdomain.check');
 });
 
 include 'admin.php';
